@@ -29,16 +29,20 @@
       "kebab-case"
     ],
     "eofline": true,
+    "file-name-casing": [
+      true,
+      "kebab-case"
+    ],
     "import-blacklist": [
       true,
       "rxjs/Rx"
     ],
     "import-spacing": true,
-    "indent": {
-      "options": [
-        "spaces"
-      ]
-    },
+    "indent": [
+      true, 
+      "spaces", 
+      4
+    ],
     "max-classes-per-file": false,
     "max-line-length": [
       true,
@@ -55,6 +59,7 @@
         ]
       }
     ],
+    "no-bitwise": true,
     "no-console": [
       true,
       "debug",
@@ -63,28 +68,48 @@
       "timeEnd",
       "trace"
     ],
+    "no-debugger": true,
     "no-empty": false,
     "no-inferrable-types": [
       true,
       "ignore-params"
     ],
     "no-non-null-assertion": true,
+    "no-return-await": true,
     "no-redundant-jsdoc": true,
+    "no-shadowed-variable": true,
+    "no-string-literal": true,
+    "no-string-throw": true,
     "no-switch-case-fall-through": true,
+    "no-trailing-whitespace": true,
+    "no-unused-expression": true,
     "no-var-requires": false,
+    "no-var-keyword": true,
     "object-literal-key-quotes": [
       true,
       "as-needed"
     ],
+    "one-line": [
+      true,
+      "check-catch",
+      "check-finally",
+      "check-else",
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "prefer-const": true,
     "quotemark": [
       true,
-      "single"
+      "single",
+      "avoid-escape"
     ],
+    "radix": true,
     "semicolon": {
       "options": [
         "always"
       ]
     },
+    "triple-equals": true,
     "space-before-function-paren": {
       "options": {
         "anonymous": "never",
