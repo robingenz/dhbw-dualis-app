@@ -1,18 +1,18 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-
-import { Platform } from '@ionic/angular';
+import { async, TestBed } from '@angular/core/testing';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
+import { Platform } from '@ionic/angular';
 import { AppComponent } from './app.component';
+
+
 
 describe('AppComponent', () => {
 
-  let statusBarSpy;
-  let splashScreenSpy;
-  let platformReadySpy;
-  let platformSpy;
+  let statusBarSpy: jasmine.SpyObj<StatusBar>;
+  let splashScreenSpy: jasmine.SpyObj<SplashScreen>;
+  let platformReadySpy: Promise<void>;
+  let platformSpy: jasmine.SpyObj<Platform>;
 
   beforeEach(async(() => {
     statusBarSpy = jasmine.createSpyObj('StatusBar', ['styleDefault']);
