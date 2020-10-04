@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "de.robingenz.dhbw.dualis",
   "appName": "dhbw-dualis-app",
   "bundledWebRuntime": false,
   "npmClient": "npm",
