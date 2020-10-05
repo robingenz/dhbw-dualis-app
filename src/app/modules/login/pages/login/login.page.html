@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>DHBW Dualis</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <form [formGroup]="loginFormGroup">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Benutzername</ion-label>
+        <ion-input formControlName="username"
+                   type="text"
+                   (keyup.enter)="submitLoginForm(loginFormGroup)"
+                   clearInput></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Passwort</ion-label>
+        <ion-input formControlName="password"
+                   type="password"
+                   (keyup.enter)="submitLoginForm(loginFormGroup)"
+                   clearInput></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit"
+                expand="block"
+                (click)="submitLoginForm(loginFormGroup)">Einloggen</ion-button>
+  </form>
 </ion-content>
