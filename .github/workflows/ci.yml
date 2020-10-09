@@ -37,8 +37,10 @@ jobs:
           node-version: '12'
       - name: Install dependencies
         run: npm ci
-      - name: Lint
+      - name: Run TSLint
         run: npm run lint
+      - name: Run Prettier
+        run: npm run prettier:check
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -51,7 +53,7 @@ jobs:
           node-version: '12'
       - name: Install dependencies
         run: npm ci
-      - name: Test
+      - name: Run unit tests
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
   e2e:
     name: E2E
@@ -65,5 +67,5 @@ jobs:
           node-version: '12'
       - name: Install dependencies
         run: npm ci
-      - name: E2E
+      - name: Run end-to-end tests
         run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
