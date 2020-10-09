@@ -5,10 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular';
 import { AppComponent } from './app.component';
 
-
-
 describe('AppComponent', () => {
-
   let statusBarSpy: jasmine.SpyObj<StatusBar>;
   let splashScreenSpy: jasmine.SpyObj<SplashScreen>;
   let platformReadySpy: Promise<void>;
@@ -46,5 +43,4 @@ describe('AppComponent', () => {
   });
 
   // TODO: add more tests!
-
 });
