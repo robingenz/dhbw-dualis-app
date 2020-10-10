@@ -10,7 +10,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "format": "npx prettier --config .prettierrc --write \"{src,e2e/src}/**/*\" --ignore-unknown"
+    "prettier:format": "npx prettier --config .prettierrc --write \"{src,e2e/src}/**/*\" --ignore-unknown",
+    "prettier:check": "npx prettier --config .prettierrc --check \"{src,e2e/src}/**/*\" --ignore-unknown"
   },
   "private": true,
   "dependencies": {
