@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { DialogService } from '@app/core';
 
 @Component({
   selector: 'app-login',
@@ -18,21 +18,15 @@ export class LoginPage {
     }),
   });
 
-  constructor(private changeDetectionRef: ChangeDetectorRef, private alertCtrl: AlertController) {}
+  constructor(private changeDetectionRef: ChangeDetectorRef, private dialogService: DialogService) {}
 
   public async submitLoginForm(loginFormGroup: FormGroup): Promise<void> {
     if (!loginFormGroup.valid) {
-      await this.showAlert('Einloggen fehlgeschlagen! Bitte fülle alle Eingabefelder aus.');
+      await this.dialogService.showErrorAlert({ message: 'Bitte fülle alle Eingabefelder aus.' });
+      return;
     }
+    const loading = await this.dialogService.showLoading();
     // TODO
-  }
-
-  private async showAlert(subHeader: string): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      header: 'Fehlgeschlagen!',
-      subHeader: subHeader,
-      buttons: ['OK'],
-    });
-    await alert.present();
+    loading.dismiss();
   }
 }
