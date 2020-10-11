@@ -2,7 +2,8 @@
   "extends": "tslint:recommended",
   "linterOptions": {
     "exclude": [
-      "**/*.spec.*"
+      "**/*.spec.*",
+      "**/*.e2e-spec.*"
     ]
   },
   "rules": {
