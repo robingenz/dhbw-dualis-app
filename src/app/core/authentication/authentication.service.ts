@@ -72,7 +72,7 @@ export class AuthenticationService {
         '/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome',
       ].join(''),
     };
-    return await this.nativeHttpService.request(options);
+    return this.nativeHttpService.request(options);
   }
 
   private startSession(sessionKey: string): void {
