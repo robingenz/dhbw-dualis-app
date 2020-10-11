@@ -31,7 +31,7 @@ export class LoginPage {
       await this.dialogService.showErrorAlert({ message: 'Bitte fülle alle Eingabefelder aus.' });
       return;
     }
-    this.login(loginFormGroup.value.username, loginFormGroup.value.password);
+    return this.login(loginFormGroup.value.username, loginFormGroup.value.password);
   }
 
   private async login(username: string, password: string): Promise<void> {
