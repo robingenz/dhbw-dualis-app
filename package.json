@@ -1,7 +1,8 @@
 {
   "name": "dhbw-dualis-app",
   "version": "0.0.1",
-  "author": "Robin Genz",
+  "author": "Robin Genz <mail@robingenz.de>",
+  "license": "MIT",
   "homepage": "https://github.com/robingenz/dhbw-dualis-app",
   "scripts": {
     "ng": "ng",
@@ -56,5 +57,12 @@
     "tslint": "6.1.0",
     "typescript": "3.9.5"
   },
-  "description": "An unofficial app for students of the Baden-Wuerttemberg Cooperative State University (DHBW) to query the examination results"
+  "description": "An unofficial app for students of the Baden-Wuerttemberg Cooperative State University (DHBW) to query the examination results.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/robingenz/dhbw-dualis-app"
+  },
+  "bugs": {
+    "url": "https://github.com/robingenz/dhbw-dualis-app/issues"
+  }
 }
