@@ -40,7 +40,7 @@ export class LoginPage {
       const successfulLogin: boolean = await this.authService.login(username, password);
       console.log('successfulLogin', successfulLogin);
       if (successfulLogin === true) {
-        // await this.router.navigate(['/dualis'], { replaceUrl: true });
+        // await this.router.navigate(['/exam-results'], { replaceUrl: true });
       } else {
         await this.dialogService.showErrorAlert({ message: 'Benutzername oder Passwort falsch.' });
       }

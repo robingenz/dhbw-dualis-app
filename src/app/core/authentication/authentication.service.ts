@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { HttpOptions, HttpParams, HttpResponse } from '@capacitor-community/http';
+import { HttpOptions, HttpResponse } from '@capacitor-community/http';
 import { Session } from '../interfaces';
 import { HttpMethod, NativeHttpService } from '../services';
 
-interface LoginHttpParams extends HttpParams {
+interface LoginParams {
   usrname: string;
   pass: string;
   APPNAME: string;
@@ -27,7 +27,7 @@ export class AuthenticationService {
 
   public async login(username: string, password: string): Promise<boolean> {
     await this.setRequiredSessionCookie();
-    const params: LoginHttpParams = {
+    const params: LoginParams = {
       usrname: username,
       pass: password,
       APPNAME: 'CampusNet',
@@ -40,24 +40,20 @@ export class AuthenticationService {
       persno: '00000000',
     };
     const options: HttpOptions = {
+      method: HttpMethod.POST,
       url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-      method: HttpMethod.Get,
-      params: params,
       headers: {
-        'Content-Type': 'multipart/form-data; charset=UTF-8',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
+      data: params,
     };
     const response: HttpResponse = await this.nativeHttpService.request(options);
-    const refreshHeader = response.headers.refresh;
-    if (refreshHeader && refreshHeader.indexOf('STARTPAGE_DISPATCH')) {
-      const url = refreshHeader.substr(refreshHeader.indexOf('URL=') + 4);
-      let sessionKey: string = url.substr(url.indexOf('ARGUMENTS=') + 10);
-      sessionKey = sessionKey.substr(0, sessionKey.indexOf(','));
-      this.startSession(sessionKey);
-      return true;
-    } else {
+    const sessionKey = this.getSessionKeyFromHttpResponse(response);
+    if (!sessionKey) {
       return false;
     }
+    this.startSession(sessionKey);
+    return true;
   }
 
   public logout(): void {
@@ -70,11 +66,11 @@ export class AuthenticationService {
 
   private async setRequiredSessionCookie(): Promise<HttpResponse> {
     const options: HttpOptions = {
+      method: HttpMethod.GET,
       url: [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome',
       ].join(''),
-      method: HttpMethod.Get,
     };
     return await this.nativeHttpService.request(options);
   }
@@ -89,5 +85,16 @@ export class AuthenticationService {
 
   private getExpirationTimestamp(): number {
     return Date.now() + Config.dualisTokenExpirationTimeMs;
+  }
+
+  private getSessionKeyFromHttpResponse(response: HttpResponse): string | null {
+    const refreshHeader = response.headers.refresh;
+    if (!refreshHeader.indexOf('STARTPAGE_DISPATCH')) {
+      return null;
+    }
+    const url = refreshHeader.substr(refreshHeader.indexOf('URL=') + 4);
+    let sessionKey = url.substr(url.indexOf('ARGUMENTS=') + 10);
+    sessionKey = sessionKey.substr(0, sessionKey.indexOf(','));
+    return sessionKey;
   }
 }

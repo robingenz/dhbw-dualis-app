@@ -5,8 +5,8 @@ import { HttpOptions, HttpResponse } from '@capacitor-community/http';
 import { Plugins } from '@capacitor/core';
 
 export enum HttpMethod {
-  Get = 'GET',
-  Post = 'POST',
+  GET = 'GET',
+  POST = 'POST',
 }
 
 @Injectable({
