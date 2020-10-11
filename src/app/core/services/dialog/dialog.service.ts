@@ -22,7 +22,7 @@ export class DialogService {
   public async showErrorAlert(opts?: AlertOptions): Promise<HTMLIonAlertElement> {
     const defaultOpts: AlertOptions = {
       header: 'Fehlgeschlagen',
-      buttons: ['OK'], // TODO: test merge
+      buttons: ['OK'],
     };
     opts = { ...defaultOpts, ...opts };
     return this.showAlert(opts);
