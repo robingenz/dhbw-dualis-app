@@ -9,12 +9,7 @@
     <ion-list>
       <ion-item>
         <ion-label position="stacked">Benutzername</ion-label>
-        <ion-input
-          formControlName="username"
-          type="text"
-          (keyup.enter)="submitLoginForm(loginFormGroup)"
-          clearInput
-        ></ion-input>
+        <ion-input formControlName="username" type="text" (keyup.enter)="submitLoginForm(loginFormGroup)"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Passwort</ion-label>
@@ -22,7 +17,6 @@
           formControlName="password"
           type="password"
           (keyup.enter)="submitLoginForm(loginFormGroup)"
-          clearInput
         ></ion-input>
       </ion-item>
     </ion-list>
