@@ -26,7 +26,6 @@ export class AuthenticationService {
   constructor(private nativeHttpService: NativeHttpService) {}
 
   public async login(username: string, password: string): Promise<boolean> {
-    await this.setRequiredSessionCookie();
     const params: LoginParams = {
       usrname: username,
       pass: password,
@@ -64,17 +63,6 @@ export class AuthenticationService {
     return this.session;
   }
 
-  private async setRequiredSessionCookie(): Promise<HttpResponse> {
-    const options: HttpOptions = {
-      method: HttpMethod.GET,
-      url: [
-        Config.dualisBaseUrl,
-        '/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome',
-      ].join(''),
-    };
-    return this.nativeHttpService.request(options);
-  }
-
   private startSession(sessionKey: string): void {
     this.session = { key: sessionKey, expirationTimestamp: this.getExpirationTimestamp() };
   }
@@ -89,7 +77,7 @@ export class AuthenticationService {
 
   private getSessionKeyFromHttpResponse(response: HttpResponse): string | null {
     const refreshHeader = response.headers.refresh;
-    if (!refreshHeader.indexOf('STARTPAGE_DISPATCH')) {
+    if (!refreshHeader?.indexOf('STARTPAGE_DISPATCH')) {
       return null;
     }
     const url = refreshHeader.substr(refreshHeader.indexOf('URL=') + 4);
