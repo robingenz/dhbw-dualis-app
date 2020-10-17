@@ -8,9 +8,11 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --browsers=Chrome",
+    "test:ci": "ng test --watch=false --progress=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "e2e:ci": "ng e2e --protractorConfig=e2e/protractor-ci.conf.js",
     "prettier:format": "npx prettier --config .prettierrc --write \"{src,e2e/src}/**/*\" --ignore-unknown",
     "prettier:check": "npx prettier --config .prettierrc --check \"{src,e2e/src}/**/*\" --ignore-unknown"
   },

@@ -54,7 +54,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run unit tests
-        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        run: npm run test:ci
   e2e:
     name: E2E
     runs-on: ubuntu-latest
@@ -68,4 +68,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run end-to-end tests
-        run: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+        run: npm run e2e:ci
