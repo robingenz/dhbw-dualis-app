@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService } from '@app/core';
@@ -20,7 +20,6 @@ export class LoginPage {
   });
 
   constructor(
-    private changeDetectionRef: ChangeDetectorRef,
     private dialogService: DialogService,
     private authService: AuthenticationService,
     private router: Router,
@@ -40,7 +39,7 @@ export class LoginPage {
       const successfulLogin: boolean = await this.authService.login(username, password);
       console.log('successfulLogin', successfulLogin);
       if (successfulLogin === true) {
-        // await this.router.navigate(['/exam-results'], { replaceUrl: true });
+        await this.router.navigate(['/exam-results'], { replaceUrl: true });
       } else {
         await this.dialogService.showErrorAlert({ message: 'Benutzername oder Passwort falsch.' });
       }
