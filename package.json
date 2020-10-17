@@ -9,7 +9,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test --browsers=Chrome",
-    "test:ci": "ng test --watch=false --progress=false --browsers=ChromeHeadless",
+    "test:ci": "ng test --watch=false --progress=false --browsers=HeadlessChrome",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --protractorConfig=e2e/protractor-ci.conf.js",
