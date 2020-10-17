@@ -37,14 +37,12 @@ export class LoginPage {
     const loading = await this.dialogService.showLoading();
     try {
       const successfulLogin: boolean = await this.authService.login(username, password);
-      console.log('successfulLogin', successfulLogin);
       if (successfulLogin === true) {
         await this.router.navigate(['/exam-results'], { replaceUrl: true });
       } else {
         await this.dialogService.showErrorAlert({ message: 'Benutzername oder Passwort falsch.' });
       }
     } catch (error) {
-      console.error(error);
       await this.dialogService.showErrorAlert({
         message: [
           'Es konnte keine Verbindung hergestellt werden.',
