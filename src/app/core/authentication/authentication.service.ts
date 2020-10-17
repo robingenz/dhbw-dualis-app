@@ -52,6 +52,13 @@ export class AuthenticationService {
     return this.session;
   }
 
+  public refreshSessionExpirationTimestamp(): void {
+    if (!this.session) {
+      return;
+    }
+    this.session.expirationTimestamp = this.getExpirationTimestamp();
+  }
+
   private startSession(sessionKey: string): void {
     this.session = { key: sessionKey, expirationTimestamp: this.getExpirationTimestamp() };
   }
@@ -64,7 +71,7 @@ export class AuthenticationService {
     return Date.now() + Config.dualisTokenExpirationTimeMs;
   }
 
-  private async sendLoginRequest(username: string, password: string): Promise<string | null >{
+  private async sendLoginRequest(username: string, password: string): Promise<string | null> {
     const params: LoginParams = {
       usrname: username,
       pass: password,
@@ -90,11 +97,11 @@ export class AuthenticationService {
     return sessionKey;
   }
 
-  private async sendLogoutRequest(sessionKey: string): Promise<void>{
+  private async sendLogoutRequest(sessionKey: string): Promise<void> {
     const params: LogoutParams = {
       APPNAME: 'CampusNet',
       PRGNAME: 'LOGOUT',
-      ARGUMENTS: `${sessionKey},-N001`
+      ARGUMENTS: `${sessionKey},-N001`,
     };
     const options: HttpOptions = {
       method: HttpMethod.GET,
