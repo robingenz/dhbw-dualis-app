@@ -17,6 +17,12 @@ interface LoginParams {
   persno: string;
 }
 
+interface LogoutParams {
+  APPNAME: string;
+  PRGNAME: string;
+  ARGUMENTS: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -26,6 +32,39 @@ export class AuthenticationService {
   constructor(private nativeHttpService: NativeHttpService) {}
 
   public async login(username: string, password: string): Promise<boolean> {
+    const sessionKey = await this.sendLoginRequest(username, password);
+    if (!sessionKey) {
+      return false;
+    }
+    this.startSession(sessionKey);
+    return true;
+  }
+
+  public async logout(): Promise<void> {
+    if (!this.session) {
+      return;
+    }
+    await this.sendLogoutRequest(this.session.key);
+    return this.clearSession();
+  }
+
+  public getSession(): Session | null {
+    return this.session;
+  }
+
+  private startSession(sessionKey: string): void {
+    this.session = { key: sessionKey, expirationTimestamp: this.getExpirationTimestamp() };
+  }
+
+  private clearSession(): void {
+    this.session = null;
+  }
+
+  private getExpirationTimestamp(): number {
+    return Date.now() + Config.dualisTokenExpirationTimeMs;
+  }
+
+  private async sendLoginRequest(username: string, password: string): Promise<string | null >{
     const params: LoginParams = {
       usrname: username,
       pass: password,
@@ -48,31 +87,21 @@ export class AuthenticationService {
     };
     const response: HttpResponse = await this.nativeHttpService.request(options);
     const sessionKey = this.getSessionKeyFromHttpResponse(response);
-    if (!sessionKey) {
-      return false;
-    }
-    this.startSession(sessionKey);
-    return true;
+    return sessionKey;
   }
 
-  public logout(): void {
-    return this.clearSession();
-  }
-
-  public getSession(): Session | null {
-    return this.session;
-  }
-
-  private startSession(sessionKey: string): void {
-    this.session = { key: sessionKey, expirationTimestamp: this.getExpirationTimestamp() };
-  }
-
-  private clearSession(): void {
-    this.session = null;
-  }
-
-  private getExpirationTimestamp(): number {
-    return Date.now() + Config.dualisTokenExpirationTimeMs;
+  private async sendLogoutRequest(sessionKey: string): Promise<void>{
+    const params: LogoutParams = {
+      APPNAME: 'CampusNet',
+      PRGNAME: 'LOGOUT',
+      ARGUMENTS: `${sessionKey},-N001`
+    };
+    const options: HttpOptions = {
+      method: HttpMethod.GET,
+      url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
+      data: params,
+    };
+    await this.nativeHttpService.request(options);
   }
 
   private getSessionKeyFromHttpResponse(response: HttpResponse): string | null {
