@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   AlertController,
   AngularDelegate,
+  IonicModule,
   LoadingController,
   ModalController,
   PopoverController,
@@ -14,6 +15,7 @@ describe('DialogService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ModalController, AlertController, LoadingController, PopoverController, AngularDelegate],
+      imports: [IonicModule],
     });
     service = TestBed.inject(DialogService);
   });

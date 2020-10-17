@@ -9,6 +9,7 @@ import { LoginPage } from './login.page';
 describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
+  let element: HTMLElement;
   let dialogServiceSpy, authenticationServiceSpy, routerSpy;
 
   beforeEach(async(() => {
@@ -29,10 +30,37 @@ describe('LoginPage', () => {
 
     fixture = TestBed.createComponent(LoginPage);
     component = fixture.componentInstance;
+    element = fixture.nativeElement;
     fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should be a valid input', () => {
+    component.loginFormGroup.setValue({
+      username: 'username',
+      password: 'password',
+    });
+    expect(component.loginFormGroup.valid).toBeTruthy();
+  });
+
+  it('should be an invalid input', () => {
+    component.loginFormGroup.setValue({
+      username: '',
+      password: '',
+    });
+    expect(component.loginFormGroup.valid).toBeFalsy();
+    component.loginFormGroup.setValue({
+      username: 'username',
+      password: '',
+    });
+    expect(component.loginFormGroup.valid).toBeFalsy();
+    component.loginFormGroup.setValue({
+      username: '',
+      password: 'password',
+    });
+    expect(component.loginFormGroup.valid).toBeFalsy();
   });
 });
