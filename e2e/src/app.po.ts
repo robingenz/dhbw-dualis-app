@@ -5,7 +5,7 @@ export class AppPage {
     return browser.get('/');
   }
 
-  public getParagraphText(): promise.Promise<string> {
-    return element(by.deepCss('app-root ion-content')).getText();
+  public getTitleText(): promise.Promise<string> {
+    return element(by.deepCss('app-root ion-header ion-title')).getText();
   }
 }
