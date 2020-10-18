@@ -1,0 +1,13 @@
+{
+  "appId": "de.robingenz.dhbw.dualis",
+  "appName": "dhbw-dualis-app",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
