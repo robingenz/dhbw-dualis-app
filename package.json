@@ -27,6 +27,7 @@
     "@capacitor-community/http": "github:robingenz/capacitor-http#fe9e9cc454b1d517dd96221c6dfcf4e2cb131fa1",
     "@capacitor/android": "2.4.2",
     "@capacitor/core": "2.4.2",
+    "@capacitor/ios": "2.4.2",
     "@ionic-native/core": "5.28.0",
     "@ionic-native/splash-screen": "5.28.0",
     "@ionic-native/status-bar": "5.28.0",
