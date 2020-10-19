@@ -37,6 +37,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: www
+      - name: TEST
+        run: ls -la www
       - name: Set up Node.js 12
         uses: actions/setup-node@v1
         with:
