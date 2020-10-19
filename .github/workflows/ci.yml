@@ -24,6 +24,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
+          name: www
           path: www
   android:
     name: Build Android platform
@@ -35,7 +36,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v2
         with:
-          path: www
+          name: www
       - name: Set up Node.js 12
         uses: actions/setup-node@v1
         with:
