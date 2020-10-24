@@ -82,18 +82,22 @@ jobs:
         run: npx ionic capacitor copy ios --no-build
       - name: Update native platform
         run: npx ionic capacitor update ios
-      - name: Build with xcodebuild
+      - name: Build and archive with xcodebuild
         working-directory: ios
         run: xcodebuild
           -workspace App/App.xcworkspace
           -scheme App
-          -archivePath build/App.xarchive
-          build
+          -archivePath App/build/App.xarchive
+          clean build archive
+          CODE_SIGN_IDENTITY=""
+          CODE_SIGNING_REQUIRED=NO
+          CODE_SIGNING_ALLOWED="NO"
+          CODE_SIGN_ENTITLEMENTS=""
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: ios
-          path: ios/build/*
+          path: ios/App/build/*
   lint:
     name: Lint
     runs-on: ubuntu-latest
