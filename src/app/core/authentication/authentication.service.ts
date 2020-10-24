@@ -4,7 +4,7 @@ import { HttpOptions, HttpResponse } from '@capacitor-community/http';
 import { Session } from '../interfaces';
 import { HttpMethod, NativeHttpService } from '../services';
 
-interface LoginParams {
+interface LoginHttpParams {
   usrname: string;
   pass: string;
   APPNAME: string;
@@ -17,7 +17,7 @@ interface LoginParams {
   persno: string;
 }
 
-interface LogoutParams {
+interface LogoutHttpParams {
   APPNAME: string;
   PRGNAME: string;
   ARGUMENTS: string;
@@ -72,7 +72,7 @@ export class AuthenticationService {
   }
 
   private async sendLoginRequest(username: string, password: string): Promise<string | null> {
-    const params: LoginParams = {
+    const params: LoginHttpParams = {
       usrname: username,
       pass: password,
       APPNAME: 'CampusNet',
@@ -98,7 +98,7 @@ export class AuthenticationService {
   }
 
   private async sendLogoutRequest(sessionKey: string): Promise<void> {
-    const params: LogoutParams = {
+    const params: LogoutHttpParams = {
       APPNAME: 'CampusNet',
       PRGNAME: 'LOGOUT',
       ARGUMENTS: `${sessionKey},-N001`,

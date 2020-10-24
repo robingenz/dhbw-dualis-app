@@ -1,7 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>exam-results</ion-title>
+    <ion-title>DHBW Dualis</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content class="ion-padding">
+  <app-dualis-semester-select
+    [semesterList]="semesterList"
+    (selectSemester)="selectSemester($event)"
+  ></app-dualis-semester-select>
+</ion-content>
