@@ -2,6 +2,6 @@ export interface Exam {
   readonly grade: string;
   readonly date: string;
   readonly externalAccepted: string;
-  readonly exam: string;
+  readonly displayName: string;
   readonly attempt: string;
 }

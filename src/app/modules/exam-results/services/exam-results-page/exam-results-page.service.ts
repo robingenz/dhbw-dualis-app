@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
 import { AuthenticationService, HttpMethod, NativeHttpService } from '@app/core';
 import { HttpOptions, HttpResponse } from '@capacitor-community/http';
-import { SemesterList } from '../../interfaces';
+import { Exam, SemesterList, SemesterListItem } from '../../interfaces';
 
-interface ExamResultsHttpParams {
+interface InputHttpParams {
   APPNAME: string;
   PRGNAME: string;
   ARGUMENTS: string;
@@ -21,7 +21,7 @@ export class ExamResultsPageService {
     if (!session) {
       throw new Error('No active session'); // TODO
     }
-    const params: ExamResultsHttpParams = {
+    const params: InputHttpParams = {
       APPNAME: 'CampusNet',
       PRGNAME: 'COURSERESULTS',
       ARGUMENTS: `${session.key},-N000000`,
@@ -35,50 +35,50 @@ export class ExamResultsPageService {
     return this.parseSemestersHttpResponse(response);
   }
 
-  // public async getResultsFor(semester: Semester): Promise<any> {
-  //   const session = this.authService.getSession();
-  //   if (!session) {
-  //     throw new Error('No active session'); // TODO
-  //   }
-  //   const params: ExamResultsHttpParams = {
-  //     APPNAME: 'CampusNet',
-  //     PRGNAME: 'COURSERESULTS',
-  //     ARGUMENTS: `${session.key},-N000000${semester.id}`,
-  //   };
-  //   const options: HttpOptions = {
-  //     method: HttpMethod.GET,
-  //     url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-  //     data: params,
-  //   };
-  //   const response: HttpResponse = await this.nativeHttpService.request(options);
-  //   return this.parseSemesterResultsHttpResponse(response);
-  // }
-
-  private parseSemestersHttpResponse(response: HttpResponse): SemesterList {
-    const items = [];
-    const domparser = new DOMParser();
-    const doc = domparser.parseFromString(response.data, 'text/html');
-    const optionElements = doc.getElementById('semester')?.getElementsByTagName('option');
-    for (const optionElement of Array.from(optionElements || [])) {
-      items.push({
-        id: optionElement.value,
-        displayName: optionElement.innerHTML,
-      });
+  public async getSemesterResultsFor(semester: SemesterListItem): Promise<any> {
+    const session = this.authService.getSession();
+    if (!session) {
+      throw new Error('No active session'); // TODO
     }
-    return items;
+    const params: InputHttpParams = {
+      APPNAME: 'CampusNet',
+      PRGNAME: 'COURSERESULTS',
+      ARGUMENTS: `${session.key},-N000000,-N${semester.id}`,
+    };
+    const options: HttpOptions = {
+      method: HttpMethod.GET,
+      url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
+      data: params,
+    };
+    const response: HttpResponse = await this.nativeHttpService.request(options);
+    return this.parseSemesterResultsHttpResponse(response);
   }
 
-  // private parseSemesterResultsHttpResponse(response: HttpResponse): Semester[] {
-  //   const semesters: Semester[] = [];
-  //   const domparser = new DOMParser();
-  //   const doc = domparser.parseFromString(response.data, 'text/html');
-  //   const optionElements = doc.getElementById('semester')?.getElementsByTagName('option');
-  //   for (const optionElement of Array.from(optionElements || [])) {
-  //     semesters.push({
-  //       id: optionElement.value,
-  //       displayName: optionElement.innerHTML,
-  //     });
-  //   }
-  //   return semesters;
+  // TODO: replace ref
+  // private async getUnitResultsFor(ref: string): Promise<Exam[]> {
+  //   const options: HttpOptions = {
+  //     method: HttpMethod.GET,
+  //     url: [Config.dualisBaseUrl, ref].join(''),
+  //   };
+  //   const response: HttpResponse = await this.nativeHttpService.request(options);
+  //   return this.parseExamResultsHttpResponse(response);
   // }
+  private async getUnitResultsFor(unitId: string): Promise<Exam[]> {
+    const session = this.authService.getSession();
+    if (!session) {
+      throw new Error('No active session'); // TODO
+    }
+    const params: InputHttpParams = {
+      APPNAME: 'CampusNet',
+      PRGNAME: 'RESULTDETAILS',
+      ARGUMENTS: `${session.key},-N000000,-N${unitId}`,
+    };
+    const options: HttpOptions = {
+      method: HttpMethod.GET,
+      url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
+      data: params,
+    };
+    const response: HttpResponse = await this.nativeHttpService.request(options);
+    return this.parseExamResultsHttpResponse(response);
+  }
 }

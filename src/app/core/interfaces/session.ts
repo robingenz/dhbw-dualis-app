@@ -1,4 +1,4 @@
 export interface Session {
-  key: string;
+  key: number;
   expirationTimestamp: number;
 }

@@ -1,7 +1,7 @@
 import { Unit } from './unit';
 
 export interface Semester {
-  readonly gpa: number;
-  readonly totalCredits: number;
+  readonly gpa: string;
+  readonly totalCredits: string;
   readonly units: readonly Unit[];
 }

@@ -1,10 +1,8 @@
-import { Exam } from './exam';
-
 export interface Unit {
-  readonly name: string;
-  readonly credits: string;
-  readonly finalGrade: string;
+  readonly id: number;
   readonly no: string;
-  readonly exams: readonly Exam[];
+  readonly name: string;
+  readonly finalGrade: string;
+  readonly credits: string;
   readonly status: string;
 }
