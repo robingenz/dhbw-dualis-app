@@ -12,21 +12,21 @@
 
 ## Screenshots 📷
 
-## Installation 📱
-
-<!-- App Store Hint -->
-
 ## FAQ 📢
 
 1. **Is this an official app of the DHBW?**  
-   No, this is NOT an official app of the DHBW. It is a private project of a former DHBW student.
+   No, this is NOT an official app of the DHBW. 
+   It is a private project of a former DHBW student.
 
-2. **How does the app work?**  
+2. **Will this app be published?**
+   No, this app will not be published.
+
+3. **How does the app work?**  
    Basically the app acts like a normal browser.
    The app communicates exclusively with the DHBW Dualis Server.
    The received content is parsed and displayed in an optimized way.
 
-3. **Does the app collect data?**  
+4. **Does the app collect any data?**  
    The app does not collect any data.
    The app stores the session key of the current session in order to retrieve the data requested by the user.
    This session key is stored in the app's temporary memory and is deleted when the app is closed or when using the logout function.
