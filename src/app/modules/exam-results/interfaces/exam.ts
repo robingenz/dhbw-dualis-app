@@ -1,7 +1,7 @@
 export interface Exam {
-  readonly displayName: string;
-  readonly grade: string;
-  readonly date: string;
-  readonly externalAccepted: string;
-  readonly attempt: string;
+  displayName: string;
+  grade: string;
+  date: string;
+  externalAccepted: string;
+  attempt: string;
 }

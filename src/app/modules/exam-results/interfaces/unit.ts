@@ -1,8 +1,11 @@
+import { Exam } from './exam';
+
 export interface Unit {
-  readonly id: string;
-  readonly displayName: string;
-  readonly no: string;
-  readonly finalGrade: string;
-  readonly credits: string;
-  readonly status: string;
+  id: string;
+  displayName: string;
+  no: string;
+  finalGrade: string;
+  credits: string;
+  status: string;
+  exams: Exam[] | undefined;
 }

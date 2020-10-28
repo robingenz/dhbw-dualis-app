@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { HttpOptions, HttpResponse } from '@capacitor-community/http';
+import { HttpOptions, HttpParams, HttpResponse } from '@capacitor-community/http';
 import { Session } from '../interfaces';
 import { HttpMethod, NativeHttpService } from '../services';
 
@@ -17,12 +17,6 @@ interface LoginHttpParams {
   persno: string;
 }
 
-interface LogoutHttpParams {
-  APPNAME: string;
-  PRGNAME: string;
-  ARGUMENTS: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -32,6 +26,7 @@ export class AuthenticationService {
   constructor(private nativeHttpService: NativeHttpService) {}
 
   public async login(username: string, password: string): Promise<boolean> {
+    await this.setRequiredSessionCookie(); // TODO: remove?
     const sessionKey = await this.sendLoginRequest(username, password);
     if (!sessionKey) {
       return false;
@@ -71,6 +66,18 @@ export class AuthenticationService {
     return Date.now() + Config.dualisTokenExpirationTimeMs;
   }
 
+  private async setRequiredSessionCookie(): Promise<void> {
+    const options: HttpOptions = {
+      method: HttpMethod.GET,
+      url: [
+        Config.dualisBaseUrl,
+        '/scripts/mgrqispi.dll',
+        '?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome',
+      ].join(''),
+    };
+    await this.nativeHttpService.request(options);
+  }
+
   private async sendLoginRequest(username: string, password: string): Promise<string | null> {
     const params: LoginHttpParams = {
       usrname: username,
@@ -93,20 +100,19 @@ export class AuthenticationService {
       data: params,
     };
     const response: HttpResponse = await this.nativeHttpService.request(options);
-    const sessionKey = this.getSessionKeyFromHttpResponse(response);
-    return sessionKey;
+    return this.getSessionKeyFromHttpResponse(response);
   }
 
   private async sendLogoutRequest(sessionKey: string): Promise<void> {
-    const params: LogoutHttpParams = {
+    const params: HttpParams = {
       APPNAME: 'CampusNet',
       PRGNAME: 'LOGOUT',
-      ARGUMENTS: `${sessionKey},-N001`,
+      ARGUMENTS: `-N${sessionKey},-N001`,
     };
     const options: HttpOptions = {
       method: HttpMethod.GET,
       url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-      data: params,
+      params: params,
     };
     await this.nativeHttpService.request(options);
   }

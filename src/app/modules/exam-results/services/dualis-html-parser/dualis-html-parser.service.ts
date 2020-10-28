@@ -70,6 +70,7 @@ export class DualisHtmlParserService {
         finalGrade,
         credits,
         status,
+        exams: undefined,
       });
     }
     return units;

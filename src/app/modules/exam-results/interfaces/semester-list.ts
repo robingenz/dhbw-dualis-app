@@ -1,6 +1,6 @@
-export type SemesterList = readonly SemesterListItem[];
+export type SemesterList = SemesterListItem[];
 
 export interface SemesterListItem {
-  readonly id: string;
-  readonly displayName: string;
+  id: string;
+  displayName: string;
 }
