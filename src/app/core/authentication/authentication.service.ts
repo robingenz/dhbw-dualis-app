@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { HttpOptions, HttpParams, HttpResponse } from '@capacitor-community/http';
+import { HttpParams } from '@capacitor-community/http';
+import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import { Session } from '../interfaces';
-import { HttpMethod, NativeHttpService } from '../services';
 
 interface LoginHttpParams {
   usrname: string;
@@ -23,7 +23,7 @@ interface LoginHttpParams {
 export class AuthenticationService {
   private session: Session | null = null;
 
-  constructor(private nativeHttpService: NativeHttpService) {}
+  constructor(private nativeHttp: HTTP) {}
 
   public async login(username: string, password: string): Promise<boolean> {
     await this.setRequiredSessionCookie(); // TODO: remove?
@@ -67,15 +67,15 @@ export class AuthenticationService {
   }
 
   private async setRequiredSessionCookie(): Promise<void> {
-    const options: HttpOptions = {
-      method: HttpMethod.GET,
-      url: [
+    await this.nativeHttp.get(
+      [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll',
         '?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome',
       ].join(''),
-    };
-    await this.nativeHttpService.request(options);
+      {},
+      {},
+    );
   }
 
   private async sendLoginRequest(username: string, password: string): Promise<string | null> {
@@ -91,15 +91,13 @@ export class AuthenticationService {
       menuno: '000324',
       persno: '00000000',
     };
-    const options: HttpOptions = {
-      method: HttpMethod.POST,
-      url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+    const response: HTTPResponse = await this.nativeHttp.post(
+      [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
+      params,
+      {
+        'Content-Type': 'multipart/form-data; charset=UTF-8',
       },
-      data: params,
-    };
-    const response: HttpResponse = await this.nativeHttpService.request(options);
+    );
     return this.getSessionKeyFromHttpResponse(response);
   }
 
@@ -109,15 +107,12 @@ export class AuthenticationService {
       PRGNAME: 'LOGOUT',
       ARGUMENTS: `-N${sessionKey},-N001`,
     };
-    const options: HttpOptions = {
-      method: HttpMethod.GET,
-      url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-      params: params,
-    };
-    await this.nativeHttpService.request(options);
+    await this.nativeHttp.get([Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''), params, {
+      'Content-Type': 'multipart/form-data; charset=UTF-8',
+    });
   }
 
-  private getSessionKeyFromHttpResponse(response: HttpResponse): string | null {
+  private getSessionKeyFromHttpResponse(response: HTTPResponse): string | null {
     const refreshHeader = response.headers.refresh;
     if (!refreshHeader?.indexOf('STARTPAGE_DISPATCH')) {
       return null;
