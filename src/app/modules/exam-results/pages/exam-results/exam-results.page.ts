@@ -12,7 +12,7 @@ import { ExamResultsPageService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExamResultsPage implements OnInit, ViewDidEnter {
-  private semesterList: SemesterList | undefined;
+  public semesterList: SemesterList | undefined;
 
   constructor(
     private dialogService: DialogService,

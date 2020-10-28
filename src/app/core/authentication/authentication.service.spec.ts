@@ -47,12 +47,12 @@ describe('AuthenticationService', () => {
   });
 
   it('should set the correct session key', async () => {
-    const sessionKey = '-N111222333444555';
+    const sessionKey = '111222333444555';
     nativeHttpServiceSpy.request.and.callFake(() => {
       return Promise.resolve({
         data: '',
         headers: {
-          refresh: `0; URL=/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=STARTPAGE_DISPATCH&ARGUMENTS=${sessionKey},-N000311,-N000000000000000`,
+          refresh: `0; URL=/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=STARTPAGE_DISPATCH&ARGUMENTS=-N${sessionKey},-N000311,-N000000000000000`,
         },
         status: 200,
       });

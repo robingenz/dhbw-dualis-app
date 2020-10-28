@@ -116,9 +116,7 @@ export class AuthenticationService {
     if (!refreshHeader?.indexOf('STARTPAGE_DISPATCH')) {
       return null;
     }
-    const url = refreshHeader.substr(refreshHeader.indexOf('URL=') + 4);
-    let sessionKey = url.substr(url.indexOf('ARGUMENTS=') + 10);
-    sessionKey = sessionKey.substr(0, sessionKey.indexOf(','));
-    return sessionKey;
+    const refreshHeaderRegex = refreshHeader.match(/ARGUMENTS=-N\d+,/);
+    return refreshHeaderRegex ? refreshHeaderRegex[0].replace('ARGUMENTS=-N', '').replace(',', '') : null;
   }
 }

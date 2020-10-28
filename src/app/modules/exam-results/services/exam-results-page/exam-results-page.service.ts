@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
 import { AuthenticationService, HttpMethod, NativeHttpService } from '@app/core';
 import { HttpOptions, HttpResponse } from '@capacitor-community/http';
-import { Exam, SemesterList, SemesterListItem } from '../../interfaces';
+import { Exam, Semester, SemesterList, SemesterListItem } from '../../interfaces';
+import { DualisHtmlParserService } from '../dualis-html-parser/dualis-html-parser.service';
 
 interface InputHttpParams {
   APPNAME: string;
@@ -14,7 +15,11 @@ interface InputHttpParams {
   providedIn: 'root',
 })
 export class ExamResultsPageService {
-  constructor(private authService: AuthenticationService, private nativeHttpService: NativeHttpService) {}
+  constructor(
+    private authService: AuthenticationService,
+    private nativeHttpService: NativeHttpService,
+    private dualisHtmlParserService: DualisHtmlParserService,
+  ) {}
 
   public async getSemesterList(): Promise<SemesterList> {
     const session = this.authService.getSession();
@@ -32,10 +37,10 @@ export class ExamResultsPageService {
       data: params,
     };
     const response: HttpResponse = await this.nativeHttpService.request(options);
-    return this.parseSemestersHttpResponse(response);
+    return this.dualisHtmlParserService.parseSemesterList(response.data);
   }
 
-  public async getSemesterResultsFor(semester: SemesterListItem): Promise<any> {
+  public async getSemesterByListItem(item: SemesterListItem): Promise<Semester | null> {
     const session = this.authService.getSession();
     if (!session) {
       throw new Error('No active session'); // TODO
@@ -43,7 +48,7 @@ export class ExamResultsPageService {
     const params: InputHttpParams = {
       APPNAME: 'CampusNet',
       PRGNAME: 'COURSERESULTS',
-      ARGUMENTS: `${session.key},-N000000,-N${semester.id}`,
+      ARGUMENTS: `${session.key},-N000000,-N${item.id}`,
     };
     const options: HttpOptions = {
       method: HttpMethod.GET,
@@ -51,19 +56,19 @@ export class ExamResultsPageService {
       data: params,
     };
     const response: HttpResponse = await this.nativeHttpService.request(options);
-    return this.parseSemesterResultsHttpResponse(response);
+    const totalCredits = this.dualisHtmlParserService.parseSemesterCredits(response.data) || '';
+    const gpa = this.dualisHtmlParserService.parseSemesterGpa(response.data) || '';
+    const units = this.dualisHtmlParserService.parseUnits(response.data) || [];
+    return {
+      id: item.id,
+      displayName: item.displayName,
+      gpa,
+      totalCredits,
+      units,
+    };
   }
 
-  // TODO: replace ref
-  // private async getUnitResultsFor(ref: string): Promise<Exam[]> {
-  //   const options: HttpOptions = {
-  //     method: HttpMethod.GET,
-  //     url: [Config.dualisBaseUrl, ref].join(''),
-  //   };
-  //   const response: HttpResponse = await this.nativeHttpService.request(options);
-  //   return this.parseExamResultsHttpResponse(response);
-  // }
-  private async getUnitResultsFor(unitId: string): Promise<Exam[]> {
+  private async getExamsByUnitId(unitId: string): Promise<Exam[] | null> {
     const session = this.authService.getSession();
     if (!session) {
       throw new Error('No active session'); // TODO
@@ -79,6 +84,6 @@ export class ExamResultsPageService {
       data: params,
     };
     const response: HttpResponse = await this.nativeHttpService.request(options);
-    return this.parseExamResultsHttpResponse(response);
+    return this.dualisHtmlParserService.parseExams(response.data);
   }
 }
