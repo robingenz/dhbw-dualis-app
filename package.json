@@ -24,7 +24,6 @@
     "@angular/platform-browser": "10.0.14",
     "@angular/platform-browser-dynamic": "10.0.14",
     "@angular/router": "10.0.14",
-    "@capacitor-community/http": "github:robingenz/capacitor-http#fe9e9cc454b1d517dd96221c6dfcf4e2cb131fa1",
     "@capacitor/android": "2.4.2",
     "@capacitor/core": "2.4.2",
     "@capacitor/ios": "2.4.2",
