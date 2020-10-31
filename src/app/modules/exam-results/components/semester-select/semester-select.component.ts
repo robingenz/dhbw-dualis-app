@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { SelectChangeEventDetail } from '@ionic/core';
-import { SemesterList } from '../../interfaces';
-import { Semester } from '../../interfaces/semester';
+import { SemesterList, SemesterListItem } from '../../interfaces';
 
 @Component({
   selector: 'app-semester-select',
@@ -13,13 +12,11 @@ export class SemesterSelectComponent {
   @Input()
   public semesterList: SemesterList | undefined;
   @Output()
-  public selectSemester: EventEmitter<Semester> = new EventEmitter<Semester>();
+  public selectSemester: EventEmitter<SemesterListItem> = new EventEmitter<SemesterListItem>();
 
   constructor() {}
 
-  // TODO: remove any
-  public onSemesterSelect(event: SelectChangeEventDetail<any>): void {
-    console.log(event);
-    // this.selectSemester.emit(event.value);
+  public onSemesterSelect(event: CustomEvent<SelectChangeEventDetail<SemesterListItem>>): void {
+    this.selectSemester.emit(event.detail.value);
   }
 }

@@ -50,7 +50,8 @@ export class ExamResultsPageService {
     const gpa = this.dualisHtmlParserService.parseSemesterGpa(response.data) || '';
     const units = this.dualisHtmlParserService.parseUnits(response.data) || [];
     const promises = units.map(async (unit) => {
-      unit.exams = (await this.getExamsByUnitId(unit.id)) || [];
+      const exams = await this.getExamsByUnitId(unit.id);
+      unit.exams = exams || [];
     });
     await Promise.all(promises);
     return {
@@ -63,20 +64,19 @@ export class ExamResultsPageService {
   }
 
   private async getExamsByUnitId(unitId: string): Promise<Exam[] | null> {
-    return [];
-    // const session = this.authService.getSession();
-    // if (!session) {
-    //   throw new Error('No active session'); // TODO
-    // }
-    // const response: HTTPResponse = await this.nativeHttp.get(
-    //   [
-    //     Config.dualisBaseUrl,
-    //     '/scripts/mgrqispi.dll',
-    //     `?APPNAME=CampusNet&PRGNAME=RESULTDETAILS&ARGUMENTS=-N${session.key},-N000000,-N${unitId}`,
-    //   ].join(''),
-    //   {},
-    //   {},
-    // );
-    // return this.dualisHtmlParserService.parseExams(response.data);
+    const session = this.authService.getSession();
+    if (!session) {
+      throw new Error('No active session'); // TODO
+    }
+    const response: HTTPResponse = await this.nativeHttp.get(
+      [
+        Config.dualisBaseUrl,
+        '/scripts/mgrqispi.dll',
+        `?APPNAME=CampusNet&PRGNAME=RESULTDETAILS&ARGUMENTS=-N${session.key},-N000000,-N${unitId}`,
+      ].join(''),
+      {},
+      {},
+    );
+    return this.dualisHtmlParserService.parseExams(response.data);
   }
 }

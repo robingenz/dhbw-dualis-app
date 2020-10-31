@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { HttpParams } from '@capacitor-community/http';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import { Session } from '../interfaces';
 
@@ -102,14 +101,17 @@ export class AuthenticationService {
   }
 
   private async sendLogoutRequest(sessionKey: string): Promise<void> {
-    const params: HttpParams = {
-      APPNAME: 'CampusNet',
-      PRGNAME: 'LOGOUT',
-      ARGUMENTS: `-N${sessionKey},-N001`,
-    };
-    await this.nativeHttp.get([Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''), params, {
-      'Content-Type': 'multipart/form-data; charset=UTF-8',
-    });
+    await this.nativeHttp.get(
+      [
+        Config.dualisBaseUrl,
+        '/scripts/mgrqispi.dll',
+        `?APPNAME=CampusNet&PRGNAME=LOGOUT&ARGUMENTS=-N${sessionKey},-N001`,
+      ].join(''),
+      {},
+      {
+        'Content-Type': 'multipart/form-data; charset=UTF-8',
+      },
+    );
   }
 
   private getSessionKeyFromHttpResponse(response: HTTPResponse): string | null {

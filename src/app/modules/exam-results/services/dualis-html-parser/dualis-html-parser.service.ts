@@ -24,8 +24,14 @@ export class DualisHtmlParserService {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const tbodyElm = doc.getElementById('contentSpacer_IE')?.getElementsByTagName('tbody')[0];
     const trElms = tbodyElm?.getElementsByTagName('tr');
-    if (trElms) {
-      const thElms = trElms[0].getElementsByTagName('th');
+    if (!trElms) {
+      return null;
+    }
+    for (const trElm of Array.from(trElms)) {
+      const thElms = trElm.getElementsByTagName('th');
+      if (thElms.length < 1) {
+        continue;
+      }
       return thElms[1].innerHTML.trim();
     }
     return null;
@@ -35,8 +41,14 @@ export class DualisHtmlParserService {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const tbodyElm = doc.getElementById('contentSpacer_IE')?.getElementsByTagName('tbody')[0];
     const trElms = tbodyElm?.getElementsByTagName('tr');
-    if (trElms) {
-      const thElms = trElms[0].getElementsByTagName('th');
+    if (!trElms) {
+      return null;
+    }
+    for (const trElm of Array.from(trElms)) {
+      const thElms = trElm.getElementsByTagName('th');
+      if (thElms.length < 1) {
+        continue;
+      }
       return thElms[2].innerHTML.trim();
     }
     return null;
@@ -86,7 +98,7 @@ export class DualisHtmlParserService {
       if (tbdataElms.length < 1) {
         continue;
       }
-      const attempt = tbdataElms[0].innerHTML.trim();
+      const attempt = tbdataElms[0].innerHTML.trim(); // TODO: replace &nbsp; ?
       const displayName = tbdataElms[1].innerHTML.trim();
       const date = tbdataElms[2].innerHTML.trim();
       const grade = tbdataElms[3].innerHTML.trim();

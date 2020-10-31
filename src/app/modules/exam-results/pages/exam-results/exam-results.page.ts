@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService } from '@app/core';
 import { ViewDidEnter } from '@ionic/angular';
-import { SemesterList } from '../../interfaces';
+import { Semester, SemesterList, SemesterListItem } from '../../interfaces';
 import { ExamResultsPageService } from '../../services';
 
 @Component({
@@ -13,6 +13,7 @@ import { ExamResultsPageService } from '../../services';
 })
 export class ExamResultsPage implements OnInit, ViewDidEnter {
   public semesterList: SemesterList | undefined;
+  public semesterResults: Semester | undefined;
 
   constructor(
     private dialogService: DialogService,
@@ -28,21 +29,23 @@ export class ExamResultsPage implements OnInit, ViewDidEnter {
     this.loadSemesterList();
   }
 
-  public async selectSemester(event: string): Promise<void> {
-    // let semester: Semester;
-    console.log(event);
-    // if (event) {
-    //   semester = event.target.value;
-    // }
-    // await loader.present();
-    // try {
-    //   this.semesterResults = await this.examResultsPageService.getSemesterResults(semester);
-    // } catch (error) {
-    //   await this.showAlert();
-    // } finally {
-    //   this.cdr.markForCheck();
-    //   await this.loadingCtrl.dismiss();
-    // }
+  public async selectSemester(listItem: SemesterListItem): Promise<void> {
+    const loading = await this.dialogService.showLoading();
+    try {
+      const semester = await this.examResultsPageService.getSemesterByListItem(listItem);
+      console.log(semester);
+      if (!semester) {
+        await this.dialogService.showErrorAlert({ message: 'Das Semester wurde nicht gefunden.' });
+        return;
+      }
+      this.semesterResults = semester;
+    } catch (error) {
+      // TODO
+      await this.dialogService.showErrorAlert({ message: 'Es konnte keine Verbindung hergestellt werden.' });
+    } finally {
+      this.cdr.markForCheck();
+      await loading.dismiss();
+    }
   }
 
   public async logout(): Promise<void> {
