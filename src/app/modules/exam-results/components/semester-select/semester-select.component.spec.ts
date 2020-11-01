@@ -9,8 +9,8 @@ describe('SemesterSelectComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SemesterSelectComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SemesterSelectComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SemesterSelectComponent);

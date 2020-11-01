@@ -9,8 +9,8 @@ describe('SemesterGpaBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SemesterGpaBarComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [SemesterGpaBarComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SemesterGpaBarComponent);
