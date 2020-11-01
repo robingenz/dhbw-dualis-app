@@ -1,22 +1,34 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthenticationService } from '@app/core';
+import { AuthenticationService, NativeHttpService } from '@app/core';
 import { Session } from '@app/core/interfaces';
-import { HTTP } from '@ionic-native/http/ngx';
+import { DualisHtmlParserService } from '../dualis-html-parser/dualis-html-parser.service';
 import { ExamResultsPageService } from './exam-results-page.service';
 
 describe('ExamResultsPageService', () => {
   let service: ExamResultsPageService;
-  let httpSpy: jasmine.SpyObj<HTTP>;
+  let nativeHttpServiceSpy: jasmine.SpyObj<NativeHttpService>;
   let authServiceSpy: jasmine.SpyObj<AuthenticationService>;
+  let dualisHtmlParserServiceSpy: jasmine.SpyObj<DualisHtmlParserService>;
 
   beforeEach(() => {
-    httpSpy = jasmine.createSpyObj('HTTP', ['get']);
+    nativeHttpServiceSpy = jasmine.createSpyObj('NativeHttpService', ['request']);
+    dualisHtmlParserServiceSpy = jasmine.createSpyObj('DualisHtmlParserService', [
+      'parseSemesterList',
+      'parseSemesterCredits',
+      'parseSemesterGpa',
+      'parseUnits',
+      'parseExams',
+    ]);
     authServiceSpy = jasmine.createSpyObj('AuthenticationService', {
-      getSession: { key: '-N111222333444555', expirationTimestamp: 1000 } as Session,
+      getSession: { key: '111222333444555', expirationTimestamp: 1000 } as Session,
     });
 
     TestBed.configureTestingModule({
-      providers: [{ provide: HTTP, useValue: httpSpy }],
+      providers: [
+        { provide: NativeHttpService, useValue: nativeHttpServiceSpy },
+        { provide: DualisHtmlParserService, useValue: dualisHtmlParserServiceSpy },
+        { provide: AuthenticationService, useValue: authServiceSpy },
+      ],
     });
     service = TestBed.inject(ExamResultsPageService);
   });

@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpResponse } from '@capacitor-community/http';
+import { HTTPResponse } from '@ionic-native/http/ngx';
 import { NativeHttpService } from '../services';
 import { AuthenticationService } from './authentication.service';
 
@@ -22,8 +22,8 @@ describe('AuthenticationService', () => {
 
   it('should log in successfully', async () => {
     nativeHttpServiceSpy.request.and.callFake(() => {
-      return Promise.resolve<HttpResponse>({
-        data: '',
+      return Promise.resolve<HTTPResponse>({
+        url: '',
         headers: {
           refresh: `0; URL=/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=STARTPAGE_DISPATCH&ARGUMENTS=-N111222333444555,-N000311,-N000000000000000`,
         },
@@ -36,8 +36,8 @@ describe('AuthenticationService', () => {
 
   it('should not log in successfully', async () => {
     nativeHttpServiceSpy.request.and.callFake(() => {
-      return Promise.resolve<HttpResponse>({
-        data: '',
+      return Promise.resolve<HTTPResponse>({
+        url: '',
         headers: {},
         status: 200,
       });
@@ -50,7 +50,7 @@ describe('AuthenticationService', () => {
     const sessionKey = '111222333444555';
     nativeHttpServiceSpy.request.and.callFake(() => {
       return Promise.resolve({
-        data: '',
+        url: '',
         headers: {
           refresh: `0; URL=/scripts/mgrqispi.dll?APPNAME=CampusNet&PRGNAME=STARTPAGE_DISPATCH&ARGUMENTS=-N${sessionKey},-N000311,-N000000000000000`,
         },
@@ -63,7 +63,7 @@ describe('AuthenticationService', () => {
   });
 
   it('should clear the session', async () => {
-    nativeHttpServiceSpy.request.and.callFake(() => Promise.resolve({} as HttpResponse));
+    nativeHttpServiceSpy.request.and.callFake(() => Promise.resolve({} as HTTPResponse));
     await service.logout();
     const session = service.getSession();
     expect(session).toBeNull();

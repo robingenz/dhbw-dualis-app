@@ -10,7 +10,9 @@ describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
   let element: HTMLElement;
-  let dialogServiceSpy, authenticationServiceSpy, routerSpy;
+  let dialogServiceSpy: jasmine.SpyObj<DialogService>;
+  let authenticationServiceSpy: jasmine.SpyObj<AuthenticationService>;
+  let routerSpy: jasmine.SpyObj<Router>;
 
   beforeEach(async(() => {
     dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
@@ -23,7 +25,7 @@ describe('LoginPage', () => {
       providers: [
         ChangeDetectorRef,
         { provide: DialogService, useValue: dialogServiceSpy },
-        AuthenticationService,
+        { provide: AuthenticationService, useValue: authenticationServiceSpy },
         { provide: Router, useValue: routerSpy },
       ],
     }).compileComponents();
