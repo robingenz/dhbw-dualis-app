@@ -12,7 +12,7 @@
 <ion-content class="ion-padding">
   <app-semester-select [semesterList]="semesterList" (selectSemester)="selectSemester($event)"></app-semester-select>
   <ng-container *ngIf="semesterResults?.units.length > 0">
-    <app-unit-card *ngFor="let unit of semesterResults.units" [unit]="unit"></app-unit-card>
+    <app-unit-card *ngFor="let unit of semesterResults?.units" [unit]="unit"></app-unit-card>
   </ng-container>
 </ion-content>
 
