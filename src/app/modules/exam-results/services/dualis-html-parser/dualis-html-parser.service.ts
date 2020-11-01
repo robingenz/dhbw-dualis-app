@@ -70,11 +70,11 @@ export class DualisHtmlParserService {
       const scriptContent = tdElms[5].getElementsByTagName('script')[0].innerHTML;
       const scriptContentRegex = scriptContent.match(/,-N\d+",/);
       const id = scriptContentRegex ? scriptContentRegex[0].replace(',-N', '').replace('",', '') : '';
-      const no = tdElms[0].innerHTML.trim();
-      const displayName = tdElms[1].innerHTML.trim();
-      const finalGrade = tdElms[2].innerHTML.trim();
-      const credits = tdElms[3].innerHTML.trim();
-      const status = tdElms[4].innerHTML.trim();
+      const no = tdElms[0].textContent?.trim() || '';
+      const displayName = tdElms[1].textContent?.trim() || '';
+      const finalGrade = tdElms[2].textContent?.trim() || '';
+      const credits = tdElms[3].textContent?.trim() || '';
+      const status = tdElms[4].textContent?.trim() || '';
       units.push({
         id,
         no,
@@ -98,11 +98,11 @@ export class DualisHtmlParserService {
       if (tbdataElms.length < 1) {
         continue;
       }
-      const attempt = tbdataElms[0].innerHTML.trim(); // TODO: replace &nbsp; ?
-      const displayName = tbdataElms[1].innerHTML.trim();
-      const date = tbdataElms[2].innerHTML.trim();
-      const grade = tbdataElms[3].innerHTML.trim();
-      const externalAccepted = tbdataElms[4].innerHTML.trim();
+      const attempt = tbdataElms[0].textContent?.trim() || '';
+      const displayName = tbdataElms[1].textContent?.trim() || '';
+      const date = tbdataElms[2].textContent?.trim() || '';
+      const grade = tbdataElms[3].textContent?.trim() || '';
+      const externalAccepted = tbdataElms[4].textContent?.trim() || '';
       exams.push({
         attempt,
         date,
