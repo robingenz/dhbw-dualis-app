@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService, DialogService } from '@app/core';
-import { NativeHttpError } from '@app/core/classes';
+import { AuthenticationService, DialogService, NativeHttpError } from '@app/core';
 
 @Component({
   selector: 'app-login',

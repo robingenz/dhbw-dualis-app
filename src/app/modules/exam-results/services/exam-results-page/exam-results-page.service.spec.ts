@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AuthenticationService, NativeHttpService } from '@app/core';
-import { Session } from '@app/core/interfaces';
+import { AuthenticationService, NativeHttpService, Session } from '@app/core';
 import { DualisHtmlParserService } from '../dualis-html-parser/dualis-html-parser.service';
 import { ExamResultsPageService } from './exam-results-page.service';
 

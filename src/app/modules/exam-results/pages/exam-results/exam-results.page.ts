@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService, DialogService } from '@app/core';
-import { NativeHttpError } from '@app/core/classes';
+import { AuthenticationService, DialogService, NativeHttpError } from '@app/core';
 import { ViewDidEnter } from '@ionic/angular';
 import { Semester, SemesterList, SemesterListItem } from '../../interfaces';
 import { ExamResultsPageService } from '../../services';

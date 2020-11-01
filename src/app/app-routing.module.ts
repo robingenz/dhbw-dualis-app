@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
   {
     path: 'exam-results',
     loadChildren: () => import('./modules/exam-results').then((m) => m.ExamResultsPageModule),
+    canActivate: [AuthGuard],
   },
 ];
 
