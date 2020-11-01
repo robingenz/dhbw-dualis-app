@@ -11,6 +11,7 @@ describe('AuthGuard', () => {
   beforeEach(() => {
     authServiceSpy = jasmine.createSpyObj('AuthenticationService', ['getSession']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+
     TestBed.configureTestingModule({
       providers: [
         { provide: AuthenticationService, useValue: authServiceSpy },
