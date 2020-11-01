@@ -1,20 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
+import { HTTPResponse } from '@ionic-native/http/ngx';
 import { Session } from '../interfaces';
-
-interface LoginHttpParams {
-  usrname: string;
-  pass: string;
-  APPNAME: string;
-  PRGNAME: string;
-  ARGUMENTS: string;
-  clino: string;
-  browser: string;
-  platform: string;
-  menuno: string;
-  persno: string;
-}
+import { NativeHttpMethod, NativeHttpService } from '../services';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +10,10 @@ interface LoginHttpParams {
 export class AuthenticationService {
   private session: Session | null = null;
 
-  constructor(private nativeHttp: HTTP) {}
+  constructor(private nativeHttpService: NativeHttpService) {}
 
   public async login(username: string, password: string): Promise<boolean> {
-    await this.setRequiredSessionCookie(); // TODO: remove?
+    await this.setRequiredSessionCookie();
     const sessionKey = await this.sendLoginRequest(username, password);
     if (!sessionKey) {
       return false;
@@ -66,19 +54,18 @@ export class AuthenticationService {
   }
 
   private async setRequiredSessionCookie(): Promise<void> {
-    await this.nativeHttp.get(
-      [
+    await this.nativeHttpService.request({
+      method: NativeHttpMethod.GET,
+      url: [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll',
         '?APPNAME=CampusNet&PRGNAME=EXTERNALPAGES&ARGUMENTS=-N000000000000001,-N000324,-Awelcome',
       ].join(''),
-      {},
-      {},
-    );
+    });
   }
 
   private async sendLoginRequest(username: string, password: string): Promise<string | null> {
-    const params: LoginHttpParams = {
+    const data: { [name: string]: string } = {
       usrname: username,
       pass: password,
       APPNAME: 'CampusNet',
@@ -90,28 +77,27 @@ export class AuthenticationService {
       menuno: '000324',
       persno: '00000000',
     };
-    const response: HTTPResponse = await this.nativeHttp.post(
-      [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-      params,
-      {
-        'Content-Type': 'multipart/form-data; charset=UTF-8',
-      },
-    );
+    const headers: { [name: string]: string } = {
+      'Content-Type': 'multipart/form-data; charset=UTF-8',
+    };
+    const response: HTTPResponse = await this.nativeHttpService.request({
+      method: NativeHttpMethod.POST,
+      url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
+      data: data,
+      headers: headers,
+    });
     return this.getSessionKeyFromHttpResponse(response);
   }
 
   private async sendLogoutRequest(sessionKey: string): Promise<void> {
-    await this.nativeHttp.get(
-      [
+    await this.nativeHttpService.request({
+      method: NativeHttpMethod.GET,
+      url: [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll',
         `?APPNAME=CampusNet&PRGNAME=LOGOUT&ARGUMENTS=-N${sessionKey},-N001`,
       ].join(''),
-      {},
-      {
-        'Content-Type': 'multipart/form-data; charset=UTF-8',
-      },
-    );
+    });
   }
 
   private getSessionKeyFromHttpResponse(response: HTTPResponse): string | null {
