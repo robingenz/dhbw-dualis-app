@@ -4,8 +4,8 @@ import { NativeHttpError } from '@app/core/classes';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 
 export enum NativeHttpMethod {
-  'GET',
-  'POST',
+  GET = 'get',
+  POST = 'post',
 }
 
 export interface INativeHttpRequestOptions {
@@ -39,13 +39,13 @@ export class NativeHttpService {
     switch (options.method) {
       case NativeHttpMethod.GET:
         return this.nativeHttp.sendRequest(options.url, {
-          method: 'get',
+          method: NativeHttpMethod.GET,
           headers: options.headers,
           params: options.params,
         });
       case NativeHttpMethod.POST:
         return this.nativeHttp.sendRequest(options.url, {
-          method: 'post',
+          method: NativeHttpMethod.POST,
           headers: options.headers,
           data: options.data,
         });
