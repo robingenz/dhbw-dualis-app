@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { AuthenticationService, NativeHttpMethod, NativeHttpService } from '@app/core';
+import { AuthenticationService, NativeHttpMethod, NativeHttpService, SessionError } from '@app/core';
 import { HTTPResponse } from '@ionic-native/http/ngx';
 import { Exam, Semester, SemesterList, SemesterListItem } from '../../interfaces';
 import { DualisHtmlParserService } from '../dualis-html-parser/dualis-html-parser.service';
@@ -18,32 +18,26 @@ export class ExamResultsPageService {
   ) {}
 
   public async getSemesterList(): Promise<SemesterList> {
-    const session = this.authService.getSession();
-    if (!session) {
-      throw new Error(`${LOGTAG} No session found.`);
-    }
+    const sessionKey = this.getSessionKey();
     const response: HTTPResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.GET,
       url: [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll',
-        `?APPNAME=CampusNet&PRGNAME=COURSERESULTS&ARGUMENTS=-N${session.key},-N000000`,
+        `?APPNAME=CampusNet&PRGNAME=COURSERESULTS&ARGUMENTS=-N${sessionKey},-N000000`,
       ].join(''),
     });
     return this.dualisHtmlParserService.parseSemesterList(response.data);
   }
 
   public async getSemesterByListItem(item: SemesterListItem): Promise<Semester | null> {
-    const session = this.authService.getSession();
-    if (!session) {
-      throw new Error(`${LOGTAG} No session found.`);
-    }
+    const sessionKey = this.getSessionKey();
     const response: HTTPResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.GET,
       url: [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll',
-        `?APPNAME=CampusNet&PRGNAME=COURSERESULTS&ARGUMENTS=-N${session.key},-N000000,-N${item.id}`,
+        `?APPNAME=CampusNet&PRGNAME=COURSERESULTS&ARGUMENTS=-N${sessionKey},-N000000,-N${item.id}`,
       ].join(''),
     });
     const totalCredits = this.dualisHtmlParserService.parseSemesterCredits(response.data) || '';
@@ -64,18 +58,24 @@ export class ExamResultsPageService {
   }
 
   private async getExamsByUnitId(unitId: string): Promise<Exam[] | null> {
-    const session = this.authService.getSession();
-    if (!session) {
-      throw new Error(`${LOGTAG} No session found.`);
-    }
+    const sessionKey = this.getSessionKey();
     const response: HTTPResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.GET,
       url: [
         Config.dualisBaseUrl,
         '/scripts/mgrqispi.dll',
-        `?APPNAME=CampusNet&PRGNAME=RESULTDETAILS&ARGUMENTS=-N${session.key},-N000000,-N${unitId}`,
+        `?APPNAME=CampusNet&PRGNAME=RESULTDETAILS&ARGUMENTS=-N${sessionKey},-N000000,-N${unitId}`,
       ].join(''),
     });
     return this.dualisHtmlParserService.parseExams(response.data);
+  }
+
+  private getSessionKey(): string {
+    const session = this.authService.getSession();
+    if (!session || session.isExpired()) {
+      throw new SessionError(`Current session is expired.`);
+    }
+    session.resetExpirationDate();
+    return session.key;
   }
 }

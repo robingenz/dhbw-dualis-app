@@ -19,7 +19,7 @@ describe('ExamResultsPageService', () => {
       'parseExams',
     ]);
     authServiceSpy = jasmine.createSpyObj('AuthenticationService', {
-      getSession: { key: '111222333444555', expirationTimestamp: 1000 } as Session,
+      getSession: new Session('123'),
     });
 
     TestBed.configureTestingModule({

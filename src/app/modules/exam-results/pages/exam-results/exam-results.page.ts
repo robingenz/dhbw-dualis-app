@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService, DialogService, NativeHttpError } from '@app/core';
-import { ViewDidEnter } from '@ionic/angular';
+import { AuthenticationService, DialogService, NativeHttpError, SessionError } from '@app/core';
 import { Semester, SemesterList, SemesterListItem } from '../../interfaces';
 import { ExamResultsPageService } from '../../services';
 
@@ -11,7 +10,7 @@ import { ExamResultsPageService } from '../../services';
   styleUrls: ['./exam-results.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ExamResultsPage implements OnInit, ViewDidEnter {
+export class ExamResultsPage implements OnInit {
   public semesterList: SemesterList | undefined;
   public semesterResults: Semester | undefined;
 
@@ -23,9 +22,7 @@ export class ExamResultsPage implements OnInit, ViewDidEnter {
     private examResultsPageService: ExamResultsPageService,
   ) {}
 
-  public ngOnInit(): void {}
-
-  public ionViewDidEnter(): void {
+  public ngOnInit(): void {
     this.loadSemesterList();
   }
 
@@ -43,6 +40,9 @@ export class ExamResultsPage implements OnInit, ViewDidEnter {
         await this.dialogService.showErrorAlert({
           message: error.message,
         });
+      } else if (error instanceof SessionError) {
+        await this.authService.logout();
+        await this.router.navigate(['/login'], { replaceUrl: true });
       } else {
         throw error;
       }

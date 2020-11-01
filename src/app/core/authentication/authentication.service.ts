@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
 import { HTTPResponse } from '@ionic-native/http/ngx';
-import { Session } from '../interfaces';
+import { Session } from '../classes';
 import { NativeHttpMethod, NativeHttpService } from '../services';
 
 @Injectable({
@@ -34,23 +34,12 @@ export class AuthenticationService {
     return this.session;
   }
 
-  public refreshSessionExpirationTimestamp(): void {
-    if (!this.session) {
-      return;
-    }
-    this.session.expirationTimestamp = this.getExpirationTimestamp();
-  }
-
   private startSession(sessionKey: string): void {
-    this.session = { key: sessionKey, expirationTimestamp: this.getExpirationTimestamp() };
+    this.session = new Session(sessionKey);
   }
 
   private clearSession(): void {
     this.session = null;
-  }
-
-  private getExpirationTimestamp(): number {
-    return Date.now() + Config.dualisTokenExpirationTimeMs;
   }
 
   private async setRequiredSessionCookie(): Promise<void> {
