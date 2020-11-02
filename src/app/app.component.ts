@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Plugins, StatusBarStyle } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -9,14 +8,23 @@ import { Platform } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private platform: Platform, private splashScreen: SplashScreen, private statusBar: StatusBar) {
+  constructor(private platform: Platform) {
     this.initializeApp();
   }
 
   public initializeApp(): void {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.initStatusBar();
+      Plugins.SplashScreen.hide();
     });
+  }
+
+  private initStatusBar(): void {
+    if (this.platform.is('android')) {
+      Plugins.StatusBar.setStyle({ style: StatusBarStyle.Dark });
+      Plugins.StatusBar.setOverlaysWebView({ overlay: false });
+    } else if (this.platform.is('ios')) {
+      Plugins.StatusBar.setStyle({ style: StatusBarStyle.Light });
+    }
   }
 }
