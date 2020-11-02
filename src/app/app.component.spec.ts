@@ -16,8 +16,8 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     originalSplashScreen = Plugins.SplashScreen;
     originalStatusBar = Plugins.StatusBar;
-    Plugins.StatusBar = jasmine.createSpyObj('StatusBar', ['setOverlaysWebView', 'setStyle']);
-    Plugins.SplashScreen = jasmine.createSpyObj('SplashScreen', ['hide']);
+    Plugins.StatusBar = jasmine.createSpyObj('StatusBarPlugin', ['setOverlaysWebView', 'setStyle']);
+    Plugins.SplashScreen = jasmine.createSpyObj('SplashScreenPlugin', ['hide']);
 
     platformSpy = createPlatformSpy();
 
