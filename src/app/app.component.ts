@@ -14,12 +14,12 @@ export class AppComponent {
 
   public initializeApp(): void {
     this.platform.ready().then(() => {
-      this.initStatusBar();
+      this.configureStatusBar();
       Plugins.SplashScreen.hide();
     });
   }
 
-  private initStatusBar(): void {
+  private configureStatusBar(): void {
     if (this.platform.is('android')) {
       Plugins.StatusBar.setStyle({ style: StatusBarStyle.Dark });
       Plugins.StatusBar.setOverlaysWebView({ overlay: false });
