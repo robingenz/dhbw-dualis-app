@@ -13,17 +13,19 @@ describe('LoginPage', () => {
   let dialogServiceSpy: jasmine.SpyObj<DialogService>;
   let authenticationServiceSpy: jasmine.SpyObj<AuthenticationService>;
   let routerSpy: jasmine.SpyObj<Router>;
+  let cdrSpy: jasmine.SpyObj<ChangeDetectorRef>;
 
   beforeEach(async(() => {
     dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
     authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', ['login']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+    cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
 
     TestBed.configureTestingModule({
       declarations: [LoginPage],
       imports: [IonicModule.forRoot(), ReactiveFormsModule],
       providers: [
-        ChangeDetectorRef,
+        { provide: ChangeDetectorRef, useValue: cdrSpy },
         { provide: DialogService, useValue: dialogServiceSpy },
         { provide: AuthenticationService, useValue: authenticationServiceSpy },
         { provide: Router, useValue: routerSpy },

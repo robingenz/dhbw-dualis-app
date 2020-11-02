@@ -9,14 +9,20 @@ import { ExamResultsPage } from './exam-results.page';
 describe('ExamResultsPage', () => {
   let component: ExamResultsPage;
   let fixture: ComponentFixture<ExamResultsPage>;
+  let element: HTMLElement;
   let dialogServiceSpy: jasmine.SpyObj<DialogService>;
   let authServiceSpy: jasmine.SpyObj<AuthenticationService>;
   let routerSpy: jasmine.SpyObj<Router>;
   let cdrSpy: jasmine.SpyObj<ChangeDetectorRef>;
   let examResultsPageServiceSpy: jasmine.SpyObj<ExamResultsPageService>;
+  let ionDialogElement: { dismiss: () => Promise<boolean> };
 
   beforeEach(async(() => {
-    dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
+    ionDialogElement = { dismiss: () => Promise.resolve(true) };
+    dialogServiceSpy = jasmine.createSpyObj('DialogService', {
+      showErrorAlert: ionDialogElement,
+      showLoading: ionDialogElement,
+    });
     authServiceSpy = jasmine.createSpyObj('AuthenticationService', ['logout']);
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
@@ -39,6 +45,7 @@ describe('ExamResultsPage', () => {
 
     fixture = TestBed.createComponent(ExamResultsPage);
     component = fixture.componentInstance;
+    element = fixture.nativeElement;
     fixture.detectChanges();
   }));
 
