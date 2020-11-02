@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService, DialogService } from '@app/core';
+import { AuthenticationService, DialogService, NativeHttpError } from '@app/core';
 
 @Component({
   selector: 'app-login',
@@ -43,12 +43,13 @@ export class LoginPage {
         await this.dialogService.showErrorAlert({ message: 'Benutzername oder Passwort falsch.' });
       }
     } catch (error) {
-      await this.dialogService.showErrorAlert({
-        message: [
-          'Es konnte keine Verbindung hergestellt werden.',
-          'Bitte überprüfe deine Internetverbindung und versuche es später nochmal.',
-        ].join(' '),
-      });
+      if (error instanceof NativeHttpError) {
+        await this.dialogService.showErrorAlert({
+          message: error.message,
+        });
+      } else {
+        throw error;
+      }
     } finally {
       await loading.dismiss();
     }
