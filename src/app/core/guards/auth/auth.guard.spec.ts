@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '@app/core/authentication';
+import { Session } from '@app/core/classes';
 import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
@@ -32,7 +33,7 @@ describe('AuthGuard', () => {
   });
 
   it('should activate the route', async () => {
-    authServiceSpy.getSession.and.returnValue({ key: '123', expirationTimestamp: 123 });
+    authServiceSpy.getSession.and.returnValue(new Session('123'));
     const canActivate = guard.canActivate();
     expect(canActivate).toBeTruthy();
   });
