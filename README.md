@@ -46,8 +46,8 @@
 ### Prerequisites
 
 - Install [Node.js](https://nodejs.org) which includes [Node Package Manager](https://www.npmjs.com/get-npm)
-- Android-Entwicklung: Installiere Android Studio
-- iOS-Entwicklung: Installiere XCode
+- Android development: Install [Android Studio](https://developer.android.com/studio)
+- iOS development: Install [XCode](https://apps.apple.com/de/app/xcode/id497799835?mt=12)
 
 ### Getting Started
 
@@ -82,6 +82,8 @@ Prepare and launch the iOS app:
 npx ionic cap sync android
 npx ionic cap run ios -l
 ```
+
+This project uses [Ionic](https://ionicframework.com/) as app development platform and the [Ionic CLI](https://ionicframework.com/docs/cli).
 
 <!-- ## Contributing 😊
 
