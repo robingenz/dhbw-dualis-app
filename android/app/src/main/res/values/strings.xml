@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">dhbw-dualis-app</string>
-    <string name="title_activity_main">dhbw-dualis-app</string>
+    <string name="app_name">Dualis</string>
+    <string name="title_activity_main">Dualis</string>
     <string name="package_name">de.robingenz.dhbw.dualis</string>
     <string name="custom_url_scheme">de.robingenz.dhbw.dualis</string>
 </resources>
