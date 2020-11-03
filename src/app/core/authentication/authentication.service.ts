@@ -54,7 +54,7 @@ export class AuthenticationService {
   }
 
   private async sendLoginRequest(username: string, password: string): Promise<string | null> {
-    const data: { [name: string]: string } = {
+    const params: { [name: string]: string } = {
       usrname: username,
       pass: password,
       APPNAME: 'CampusNet',
@@ -70,9 +70,9 @@ export class AuthenticationService {
       'Content-Type': 'multipart/form-data; charset=UTF-8',
     };
     const response: HTTPResponse = await this.nativeHttpService.request({
-      method: NativeHttpMethod.POST,
+      method: NativeHttpMethod.GET,
       url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
-      data: data,
+      params: params,
       headers: headers,
     });
     return this.getSessionKeyFromHttpResponse(response);
