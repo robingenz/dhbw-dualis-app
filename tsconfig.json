@@ -25,6 +25,9 @@
       "@app/*": [
         "src/app/*"
       ],
+      "@tests/*": [
+        "src/tests/*"
+      ],
       "@e2e/*": [
         "e2e/src/*"
       ]

@@ -11,10 +11,23 @@ import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {
   let service: DialogService;
+  let alertControllerSpy: jasmine.SpyObj<AlertController>;
+  let loadingControllerSpy: jasmine.SpyObj<LoadingController>;
+  let popoverControllerSpy: jasmine.SpyObj<PopoverController>;
 
   beforeEach(() => {
+    alertControllerSpy = jasmine.createSpyObj('AlertController', ['create']);
+    loadingControllerSpy = jasmine.createSpyObj('LoadingController', ['create']);
+    popoverControllerSpy = jasmine.createSpyObj('PopoverController', ['create']);
+
     TestBed.configureTestingModule({
-      providers: [ModalController, AlertController, LoadingController, PopoverController, AngularDelegate],
+      providers: [
+        ModalController,
+        AngularDelegate,
+        { provide: AlertController, useValue: alertControllerSpy },
+        { provide: LoadingController, useValue: loadingControllerSpy },
+        { provide: PopoverController, useValue: popoverControllerSpy },
+      ],
       imports: [IonicModule],
     });
     service = TestBed.inject(DialogService);

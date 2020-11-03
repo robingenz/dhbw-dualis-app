@@ -9,6 +9,6 @@ describe('new App', () => {
 
   it('should contain the correct title', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toContain('DHBW Dualis');
+    expect(page.getTitleText()).toContain('Login');
   });
 });
