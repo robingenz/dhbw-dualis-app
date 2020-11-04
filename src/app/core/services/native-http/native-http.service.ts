@@ -48,6 +48,7 @@ export class NativeHttpService {
           method: NativeHttpMethod.POST,
           headers: options.headers,
           data: options.data,
+          serializer: 'multipart',
         });
       default:
         throw new Error(`${LOGTAG} Http method '${options.method}' not supported.`);
