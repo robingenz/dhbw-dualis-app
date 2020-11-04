@@ -13,6 +13,7 @@
 - [x] Optimized content display for mobile devices
 - [x] All results at a glance (no pop-ups)
 - [ ] All results searchable (Coming soon)
+- [x] Dark theme
 
 ## Screenshots 📷
 
@@ -72,14 +73,14 @@ npm i
 Prepare and launch the Android app:
 
 ```
-npx ionic cap sync ios
+npx ionic cap sync android
 npx ionic cap run android -l
 ```
 
 Prepare and launch the iOS app:
 
 ```
-npx ionic cap sync android
+npx ionic cap sync ios
 npx ionic cap run ios -l
 ```
 
