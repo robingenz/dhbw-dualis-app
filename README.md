@@ -6,8 +6,6 @@
 
 🎓 An **unofficial** app for students of the Baden-Wuerttemberg Cooperative State University (DHBW) to query the examination results.
 
----
-
 ## Features 🔥
 
 - [x] Optimized content display for mobile devices
