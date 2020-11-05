@@ -72,5 +72,10 @@
   },
   "bugs": {
     "url": "https://github.com/robingenz/dhbw-dualis-app/issues"
+  },
+  "standard-version": {
+    "scripts": {
+      "postbump": "node build/bump-native-versions.js"
+    }
   }
 }
