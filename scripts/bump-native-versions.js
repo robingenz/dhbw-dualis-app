@@ -6,7 +6,7 @@ function fetchVersion() {
   return pjson.version;
 }
 
-function replaceAndroidVersion(version) {
+function updateAndroidVersion(version) {
   const buildGradleFilePath = path.join('android', 'app', 'build.gradle');
   let buildGradleFileContent = readFileContent(buildGradleFilePath);
 
@@ -21,7 +21,7 @@ function replaceAndroidVersion(version) {
   writeFileContent(buildGradleFilePath, buildGradleFileContent);
 }
 
-function replaceIosVersion(version) {
+function updateIosVersion(version) {
   const infoPlistFilePath = path.join('ios', 'App', 'App', 'Info.plist');
   let infoPlistFileContent = readFileContent(infoPlistFilePath);
 
@@ -55,8 +55,8 @@ function writeFileContent(filePath, content, encoding = 'utf8') {
 
 try {
   const version = fetchVersion();
-  replaceAndroidVersion(version);
-  replaceIosVersion(version);
+  updateAndroidVersion(version);
+  updateIosVersion(version);
 } catch (err) {
   console.error(err);
   process.exit(1);
