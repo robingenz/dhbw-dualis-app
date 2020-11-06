@@ -25,21 +25,21 @@ function replaceIosVersion(version) {
   const infoPlistFilePath = path.join('ios', 'App', 'App', 'Info.plist');
   let infoPlistFileContent = readFileContent(infoPlistFilePath);
 
-  const cfBundleVersionRegex = /<key>CFBundleVersion<\/key>[\n\r]\s+<string>\d+<\/string>/;
+  const cfBundleVersionRegex = /<key>CFBundleVersion<\/key>[\r\n]\s+<string>\d+<\/string>/;
   const oldCFBundleVersion = infoPlistFileContent
     .match(cfBundleVersionRegex)[0]
-    .replace(/<key>CFBundleVersion<\/key>[\n\r]\s+<string>/, '')
+    .replace(/<key>CFBundleVersion<\/key>[\r\n]\s+<string>/, '')
     .replace(/<\/string>/, '');
   const newCFBundleVersion = parseInt(oldCFBundleVersion) + 1;
   infoPlistFileContent = infoPlistFileContent.replace(
     cfBundleVersionRegex,
-    `<key>CFBundleVersion</key>\n  <string>${newCFBundleVersion}</string>`,
+    `<key>CFBundleVersion</key>\r\n  <string>${newCFBundleVersion}</string>`,
   );
 
-  const cdBundleShortVersionStringRegex = /<key>CFBundleShortVersionString<\/key>[\n\r]\s+<string>\d+.\d+.\d+<\/string>/;
+  const cdBundleShortVersionStringRegex = /<key>CFBundleShortVersionString<\/key>[\r\n]\s+<string>\d+.\d+.\d+<\/string>/;
   infoPlistFileContent = infoPlistFileContent.replace(
     cdBundleShortVersionStringRegex,
-    `<key>CFBundleShortVersionString</key>\n  <string>${version}</string>`,
+    `<key>CFBundleShortVersionString</key>\r\n  <string>${version}</string>`,
   );
 
   writeFileContent(infoPlistFilePath, infoPlistFileContent);
