@@ -8,7 +8,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "release": "standard-version",
+    "release": "standard-version --commit-all",
     "test": "ng test --browsers=Chrome",
     "test:ci": "ng test --watch=false --progress=false --browsers=HeadlessChrome",
     "lint": "ng lint",
@@ -75,7 +75,7 @@
   },
   "standard-version": {
     "scripts": {
-      "postbump": "node build/bump-native-versions.js"
+      "postbump": "node scripts/bump-native-versions.js && git add android/app/build.gradle ios/App/App/Info.plist"
     }
   }
 }
