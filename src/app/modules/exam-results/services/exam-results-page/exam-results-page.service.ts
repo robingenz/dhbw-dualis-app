@@ -43,7 +43,7 @@ export class ExamResultsPageService {
     const totalCredits = this.dualisHtmlParserService.parseSemesterCredits(response.data) || '';
     const gpa = this.dualisHtmlParserService.parseSemesterGpa(response.data) || '';
     const units = this.dualisHtmlParserService.parseUnits(response.data) || [];
-    const promises = units.map(async (unit) => {
+    const promises = units.map(async unit => {
       const exams = await this.getExamsByUnitId(unit.id);
       unit.exams = exams || [];
     });

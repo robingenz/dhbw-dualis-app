@@ -1,8 +1,10 @@
 {
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "quoteProps": "as-needed",
+  "semi": true,
   "singleQuote": true,
   "trailingComma": "all",
-  "semi": true,
-  "bracketSpacing": true,
   "overrides": [
     {
       "files": "*.json",
