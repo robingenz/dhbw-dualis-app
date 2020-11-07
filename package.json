@@ -68,7 +68,7 @@
   "description": "An unofficial app for students of the Baden-Wuerttemberg Cooperative State University (DHBW) to query the examination results.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/robingenz/dhbw-dualis-app"
+    "url": "git+https://github.com/robingenz/dhbw-dualis-app.git"
   },
   "bugs": {
     "url": "https://github.com/robingenz/dhbw-dualis-app/issues"
