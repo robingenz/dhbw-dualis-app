@@ -1,7 +1,7 @@
 {
   "name": "dhbw-dualis-app",
   "version": "1.0.0",
-  "author": "Robin Genz <mail@robingenz.de>",
+  "author": "Robin Genz <mail@robingenz.dev>",
   "license": "MIT",
   "homepage": "https://github.com/robingenz/dhbw-dualis-app",
   "scripts": {
