@@ -15,28 +15,30 @@ describe('LoginPage', () => {
   let routerSpy: jasmine.SpyObj<Router>;
   let cdrSpy: jasmine.SpyObj<ChangeDetectorRef>;
 
-  beforeEach(waitForAsync(() => {
-    dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
-    authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', ['login']);
-    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+  beforeEach(
+    waitForAsync(() => {
+      dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
+      authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', ['login']);
+      routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
 
-    TestBed.configureTestingModule({
-      declarations: [LoginPage],
-      imports: [IonicModule.forRoot(), ReactiveFormsModule],
-      providers: [
-        { provide: ChangeDetectorRef, useValue: cdrSpy },
-        { provide: DialogService, useValue: dialogServiceSpy },
-        { provide: AuthenticationService, useValue: authenticationServiceSpy },
-        { provide: Router, useValue: routerSpy },
-      ],
-    }).compileComponents();
+      TestBed.configureTestingModule({
+        declarations: [LoginPage],
+        imports: [IonicModule.forRoot(), ReactiveFormsModule],
+        providers: [
+          { provide: ChangeDetectorRef, useValue: cdrSpy },
+          { provide: DialogService, useValue: dialogServiceSpy },
+          { provide: AuthenticationService, useValue: authenticationServiceSpy },
+          { provide: Router, useValue: routerSpy },
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginPage);
-    component = fixture.componentInstance;
-    element = fixture.nativeElement;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(LoginPage);
+      component = fixture.componentInstance;
+      element = fixture.nativeElement;
+      fixture.detectChanges();
+    }),
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();

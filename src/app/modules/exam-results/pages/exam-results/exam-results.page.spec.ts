@@ -17,37 +17,39 @@ describe('ExamResultsPage', () => {
   let examResultsPageServiceSpy: jasmine.SpyObj<ExamResultsPageService>;
   let ionDialogElement: { dismiss: () => Promise<boolean> };
 
-  beforeEach(waitForAsync(() => {
-    ionDialogElement = { dismiss: () => Promise.resolve(true) };
-    dialogServiceSpy = jasmine.createSpyObj('DialogService', {
-      showErrorAlert: ionDialogElement,
-      showLoading: ionDialogElement,
-    });
-    authServiceSpy = jasmine.createSpyObj('AuthenticationService', ['logout']);
-    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-    cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
-    examResultsPageServiceSpy = jasmine.createSpyObj('ExamResultsPageService', [
-      'getSemesterList',
-      'getSemesterByListItem',
-    ]);
+  beforeEach(
+    waitForAsync(() => {
+      ionDialogElement = { dismiss: () => Promise.resolve(true) };
+      dialogServiceSpy = jasmine.createSpyObj('DialogService', {
+        showErrorAlert: ionDialogElement,
+        showLoading: ionDialogElement,
+      });
+      authServiceSpy = jasmine.createSpyObj('AuthenticationService', ['logout']);
+      routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+      examResultsPageServiceSpy = jasmine.createSpyObj('ExamResultsPageService', [
+        'getSemesterList',
+        'getSemesterByListItem',
+      ]);
 
-    TestBed.configureTestingModule({
-      declarations: [ExamResultsPage],
-      imports: [IonicModule.forRoot()],
-      providers: [
-        { provide: DialogService, useValue: dialogServiceSpy },
-        { provide: AuthenticationService, useValue: authServiceSpy },
-        { provide: Router, useValue: routerSpy },
-        { provide: ChangeDetectorRef, useValue: cdrSpy },
-        { provide: ExamResultsPageService, useValue: examResultsPageServiceSpy },
-      ],
-    }).compileComponents();
+      TestBed.configureTestingModule({
+        declarations: [ExamResultsPage],
+        imports: [IonicModule.forRoot()],
+        providers: [
+          { provide: DialogService, useValue: dialogServiceSpy },
+          { provide: AuthenticationService, useValue: authServiceSpy },
+          { provide: Router, useValue: routerSpy },
+          { provide: ChangeDetectorRef, useValue: cdrSpy },
+          { provide: ExamResultsPageService, useValue: examResultsPageServiceSpy },
+        ],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(ExamResultsPage);
-    component = fixture.componentInstance;
-    element = fixture.nativeElement;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(ExamResultsPage);
+      component = fixture.componentInstance;
+      element = fixture.nativeElement;
+      fixture.detectChanges();
+    }),
+  );
 
   it('should create', () => {
     expect(component).toBeTruthy();
