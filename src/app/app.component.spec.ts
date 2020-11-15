@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { Plugins, SplashScreenPlugin, StatusBarPlugin, StatusBarStyle } from '@capacitor/core';
 import { Platform } from '@ionic/angular';
 import { createPlatformSpy } from '@tests/spies';
@@ -13,24 +13,26 @@ describe('AppComponent', () => {
   let originalStatusBar: StatusBarPlugin;
   let platformSpy: jasmine.SpyObj<Platform>;
 
-  beforeEach(async(() => {
-    originalSplashScreen = Plugins.SplashScreen;
-    originalStatusBar = Plugins.StatusBar;
-    Plugins.StatusBar = jasmine.createSpyObj('StatusBarPlugin', ['setOverlaysWebView', 'setStyle']);
-    Plugins.SplashScreen = jasmine.createSpyObj('SplashScreenPlugin', ['hide']);
+  beforeEach(
+    waitForAsync(() => {
+      originalSplashScreen = Plugins.SplashScreen;
+      originalStatusBar = Plugins.StatusBar;
+      Plugins.StatusBar = jasmine.createSpyObj('StatusBarPlugin', ['setOverlaysWebView', 'setStyle']);
+      Plugins.SplashScreen = jasmine.createSpyObj('SplashScreenPlugin', ['hide']);
 
-    platformSpy = createPlatformSpy();
+      platformSpy = createPlatformSpy();
 
-    TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [{ provide: Platform, useValue: platformSpy }],
-    }).compileComponents();
+      TestBed.configureTestingModule({
+        declarations: [AppComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        providers: [{ provide: Platform, useValue: platformSpy }],
+      }).compileComponents();
 
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  }));
+      fixture = TestBed.createComponent(AppComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    }),
+  );
 
   afterEach(() => {
     Plugins.StatusBar = originalStatusBar;
