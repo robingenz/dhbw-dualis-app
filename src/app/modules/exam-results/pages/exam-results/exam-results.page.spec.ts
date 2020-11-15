@@ -1,5 +1,5 @@
 import { ChangeDetectorRef } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService } from '@app/core';
 import { IonicModule } from '@ionic/angular';
@@ -17,7 +17,7 @@ describe('ExamResultsPage', () => {
   let examResultsPageServiceSpy: jasmine.SpyObj<ExamResultsPageService>;
   let ionDialogElement: { dismiss: () => Promise<boolean> };
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     ionDialogElement = { dismiss: () => Promise.resolve(true) };
     dialogServiceSpy = jasmine.createSpyObj('DialogService', {
       showErrorAlert: ionDialogElement,
