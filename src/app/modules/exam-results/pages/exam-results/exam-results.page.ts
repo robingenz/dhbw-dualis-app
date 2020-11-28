@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService, NativeHttpError, SessionError } from '@app/core';
-import { Semester, SemesterList, SemesterListItem } from '../../interfaces';
+import { Plugins } from '@capacitor/core';
+import { Semester, SemesterList, SemesterListItem, Unit } from '../../interfaces';
 import { ExamResultsPageService } from '../../services';
 
 @Component({
@@ -13,6 +14,7 @@ import { ExamResultsPageService } from '../../services';
 export class ExamResultsPage implements OnInit {
   public semesterList: SemesterList | undefined;
   public semesterResults: Semester | undefined;
+  public searchbarValue: string = '';
 
   constructor(
     private dialogService: DialogService,
@@ -47,9 +49,21 @@ export class ExamResultsPage implements OnInit {
         throw error;
       }
     } finally {
-      this.cdr.markForCheck();
+      this.cdr.detectChanges();
       await loading.dismiss();
     }
+  }
+
+  public trackByUnitId(index: number, item: Unit): string {
+    return item.id;
+  }
+
+  public hideKeyboard(): void {
+    Plugins.Keyboard.hide();
+  }
+
+  public searchbarChangeEvent(): void {
+    this.cdr.detectChanges();
   }
 
   public async logout(): Promise<void> {
@@ -83,7 +97,7 @@ export class ExamResultsPage implements OnInit {
         throw error;
       }
     } finally {
-      this.cdr.markForCheck();
+      this.cdr.detectChanges();
       await loading.dismiss();
     }
   }

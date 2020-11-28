@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { SemesterGpaBarComponent, SemesterSelectComponent, UnitCardComponent } from './components';
 import { ExamResultsPageRoutingModule } from './exam-results-routing.module';
 import { ExamResultsPage } from './pages';
-import { EmptyStringPipe, GradePipe } from './pipes';
+import { EmptyStringPipe, GradePipe, UnitFilterPipe } from './pipes';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, ExamResultsPageRoutingModule],
@@ -16,6 +16,7 @@ import { EmptyStringPipe, GradePipe } from './pipes';
     UnitCardComponent,
     EmptyStringPipe,
     GradePipe,
+    UnitFilterPipe,
   ],
 })
 export class ExamResultsPageModule {}
