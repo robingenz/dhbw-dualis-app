@@ -63,7 +63,7 @@
     "standard-version": "9.0.0",
     "ts-node": "9.0.0",
     "tslint": "6.1.3",
-    "typescript": "4.1.2"
+    "typescript": "4.0.5"
   },
   "description": "An unofficial app for students of the Baden-Wuerttemberg Cooperative State University (DHBW) to query the examination results.",
   "repository": {
