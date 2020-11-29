@@ -22,7 +22,7 @@
   <app-semester-select [semesterList]="semesterList" (selectSemester)="selectSemester($event)"></app-semester-select>
   <ng-container *ngIf="semesterResults?.units.length > 0">
     <app-unit-card
-      *ngFor="let unit of semesterResults?.units; trackBy: trackByUnitId | unitFilter: searchbarValue"
+      *ngFor="let unit of semesterResults?.units | unitFilter: searchbarValue; trackBy: trackByUnitId"
       [unit]="unit"
     ></app-unit-card>
   </ng-container>
