@@ -20,7 +20,7 @@ describe('LoginPage', () => {
       dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
       authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', ['login']);
       routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
+      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
 
       TestBed.configureTestingModule({
         declarations: [LoginPage],
