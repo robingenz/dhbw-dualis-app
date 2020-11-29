@@ -108,6 +108,10 @@
   --ion-toolbar-background: var(--ion-color-primary);
   --ion-toolbar-color: var(--ion-color-primary-contrast);
 
+  ion-searchbar {
+    --background: var(--ion-color-primary-contrast);
+  }
+
   --ion-card-color: var(--ion-color-step-900);
 }
 
