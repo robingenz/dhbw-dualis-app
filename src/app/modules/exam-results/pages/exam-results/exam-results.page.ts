@@ -49,6 +49,7 @@ export class ExamResultsPage implements OnInit {
         throw error;
       }
     } finally {
+      this.searchbarValue = '';
       this.cdr.detectChanges();
       await loading.dismiss();
     }
