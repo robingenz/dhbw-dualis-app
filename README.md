@@ -10,7 +10,7 @@
 
 - [x] Optimized content display for mobile devices
 - [x] All results at a glance (no pop-ups)
-- [ ] All results searchable (Coming soon)
+- [x] All results searchable
 - [x] Dark theme
 
 ## Screenshots 📷
