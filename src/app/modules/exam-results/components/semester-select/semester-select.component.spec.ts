@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
+import { SelectChangeEventDetail } from '@ionic/core';
+import { SemesterListItem } from '../../interfaces';
 import { SemesterSelectComponent } from './semester-select.component';
 
 describe('SemesterSelectComponent', () => {
@@ -22,5 +23,15 @@ describe('SemesterSelectComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should emit a event on semester select', () => {
+    spyOn(component.selectSemester, 'emit');
+    component.onSemesterSelect(
+      new CustomEvent<SelectChangeEventDetail<SemesterListItem>>('', {
+        detail: { value: { id: '1', displayName: 'Test' } },
+      }),
+    );
+    expect(component.selectSemester.emit).toHaveBeenCalledWith({ id: '1', displayName: 'Test' });
   });
 });
