@@ -6,6 +6,7 @@ import { Unit } from '../../interfaces';
 })
 export class UnitFilterPipe implements PipeTransform {
   public transform(units: Unit[], searchValue: string): Unit[] {
+    console.log({ units, searchValue });
     if (!searchValue) {
       return units;
     }
@@ -23,8 +24,8 @@ export class UnitFilterPipe implements PipeTransform {
         if (obj[key].toString().toLowerCase().includes(str)) {
           return true;
         }
-      } else if (typeof obj[key] === 'object') {
-        return this.objectContainsString(obj[key], str);
+      } else if (typeof obj[key] === 'object' && this.objectContainsString(obj[key], str)) {
+        return true;
       }
     }
     return false;
