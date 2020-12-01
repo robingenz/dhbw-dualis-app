@@ -50,7 +50,7 @@ export class ExamResultsPage implements OnInit {
       }
     } finally {
       this.searchbarValue = '';
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
       await loading.dismiss();
     }
   }
@@ -61,10 +61,6 @@ export class ExamResultsPage implements OnInit {
 
   public hideKeyboard(): void {
     Plugins.Keyboard.hide();
-  }
-
-  public searchbarChangeEvent(): void {
-    this.cdr.detectChanges();
   }
 
   public async logout(): Promise<void> {
@@ -98,7 +94,7 @@ export class ExamResultsPage implements OnInit {
         throw error;
       }
     } finally {
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
       await loading.dismiss();
     }
   }
