@@ -1,4 +1,3 @@
-import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,20 +12,17 @@ describe('LoginPage', () => {
   let dialogServiceSpy: jasmine.SpyObj<DialogService>;
   let authenticationServiceSpy: jasmine.SpyObj<AuthenticationService>;
   let routerSpy: jasmine.SpyObj<Router>;
-  let cdrSpy: jasmine.SpyObj<ChangeDetectorRef>;
 
   beforeEach(
     waitForAsync(() => {
       dialogServiceSpy = jasmine.createSpyObj('DialogService', ['showErrorAlert', 'showLoading']);
       authenticationServiceSpy = jasmine.createSpyObj('AuthenticationService', ['login']);
       routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
 
       TestBed.configureTestingModule({
         declarations: [LoginPage],
         imports: [IonicModule.forRoot(), ReactiveFormsModule],
         providers: [
-          { provide: ChangeDetectorRef, useValue: cdrSpy },
           { provide: DialogService, useValue: dialogServiceSpy },
           { provide: AuthenticationService, useValue: authenticationServiceSpy },
           { provide: Router, useValue: routerSpy },

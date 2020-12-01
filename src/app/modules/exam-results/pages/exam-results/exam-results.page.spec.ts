@@ -26,7 +26,7 @@ describe('ExamResultsPage', () => {
       });
       authServiceSpy = jasmine.createSpyObj('AuthenticationService', ['logout']);
       routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
+      cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['markForCheck']);
       examResultsPageServiceSpy = jasmine.createSpyObj('ExamResultsPageService', [
         'getSemesterList',
         'getSemesterByListItem',
