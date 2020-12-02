@@ -6,7 +6,6 @@ import { Unit } from '../../interfaces';
 })
 export class UnitFilterPipe implements PipeTransform {
   public transform(units: Unit[], searchValue: string): Unit[] {
-    console.log({ units, searchValue });
     if (!searchValue) {
       return units;
     }
