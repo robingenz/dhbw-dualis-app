@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { UnitCardComponent } from './unit-card.component';
 
 describe('UnitCardComponent', () => {
@@ -19,6 +18,10 @@ describe('UnitCardComponent', () => {
       fixture.detectChanges();
     }),
   );
+
+  afterEach(() => {
+    fixture.nativeElement.remove();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

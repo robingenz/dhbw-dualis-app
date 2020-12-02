@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
 import { SemesterGpaBarComponent } from './semester-gpa-bar.component';
 
 describe('SemesterGpaBarComponent', () => {
@@ -19,6 +18,10 @@ describe('SemesterGpaBarComponent', () => {
       fixture.detectChanges();
     }),
   );
+
+  afterEach(() => {
+    fixture.nativeElement.remove();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

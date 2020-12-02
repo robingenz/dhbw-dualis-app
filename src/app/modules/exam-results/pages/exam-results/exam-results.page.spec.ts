@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService } from '@app/core';
@@ -34,6 +34,7 @@ describe('ExamResultsPage', () => {
 
       TestBed.configureTestingModule({
         declarations: [ExamResultsPage],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
         imports: [IonicModule.forRoot()],
         providers: [
           { provide: DialogService, useValue: dialogServiceSpy },
@@ -50,6 +51,10 @@ describe('ExamResultsPage', () => {
       fixture.detectChanges();
     }),
   );
+
+  afterEach(() => {
+    fixture.nativeElement.remove();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();

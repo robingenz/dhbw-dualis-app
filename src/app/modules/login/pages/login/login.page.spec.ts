@@ -36,6 +36,10 @@ describe('LoginPage', () => {
     }),
   );
 
+  afterEach(() => {
+    fixture.nativeElement.remove();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
