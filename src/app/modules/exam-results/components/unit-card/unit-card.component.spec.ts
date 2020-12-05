@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { EmptyStringPipe } from '../../pipes';
 import { UnitCardComponent } from './unit-card.component';
 
 describe('UnitCardComponent', () => {
@@ -11,7 +12,7 @@ describe('UnitCardComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [UnitCardComponent],
+        declarations: [UnitCardComponent, EmptyStringPipe],
         imports: [IonicModule.forRoot()],
       })
         .overrideComponent(UnitCardComponent, {
@@ -21,6 +22,7 @@ describe('UnitCardComponent', () => {
 
       fixture = TestBed.createComponent(UnitCardComponent);
       component = fixture.componentInstance;
+      element = fixture.nativeElement;
       fixture.detectChanges();
     }),
   );
