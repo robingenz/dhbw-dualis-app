@@ -57,6 +57,7 @@
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "4.0.1",
     "karma-jasmine-html-reporter": "1.5.4",
+    "nan": "2.14.2",
     "prettier": "2.2.1",
     "protractor": "7.0.0",
     "puppeteer": "5.5.0",
