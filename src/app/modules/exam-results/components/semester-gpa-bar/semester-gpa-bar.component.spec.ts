@@ -1,4 +1,3 @@
-import { ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { SemesterGpaBarComponent } from './semester-gpa-bar.component';
@@ -13,11 +12,7 @@ describe('SemesterGpaBarComponent', () => {
       TestBed.configureTestingModule({
         declarations: [SemesterGpaBarComponent],
         imports: [IonicModule.forRoot()],
-      })
-        .overrideComponent(SemesterGpaBarComponent, {
-          set: { changeDetection: ChangeDetectionStrategy.Default },
-        })
-        .compileComponents();
+      }).compileComponents();
 
       fixture = TestBed.createComponent(SemesterGpaBarComponent);
       component = fixture.componentInstance;
