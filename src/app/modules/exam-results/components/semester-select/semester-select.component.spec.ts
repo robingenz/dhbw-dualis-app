@@ -1,4 +1,3 @@
-import { ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { SelectChangeEventDetail } from '@ionic/core';
@@ -15,11 +14,7 @@ describe('SemesterSelectComponent', () => {
       TestBed.configureTestingModule({
         declarations: [SemesterSelectComponent],
         imports: [IonicModule.forRoot()],
-      })
-        .overrideComponent(SemesterSelectComponent, {
-          set: { changeDetection: ChangeDetectionStrategy.Default },
-        })
-        .compileComponents();
+      }).compileComponents();
 
       fixture = TestBed.createComponent(SemesterSelectComponent);
       component = fixture.componentInstance;

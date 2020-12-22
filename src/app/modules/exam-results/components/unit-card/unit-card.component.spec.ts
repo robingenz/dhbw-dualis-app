@@ -1,4 +1,3 @@
-import { ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { EmptyStringPipe } from '../../pipes';
@@ -14,11 +13,7 @@ describe('UnitCardComponent', () => {
       TestBed.configureTestingModule({
         declarations: [UnitCardComponent, EmptyStringPipe],
         imports: [IonicModule.forRoot()],
-      })
-        .overrideComponent(UnitCardComponent, {
-          set: { changeDetection: ChangeDetectionStrategy.Default },
-        })
-        .compileComponents();
+      }).compileComponents();
 
       fixture = TestBed.createComponent(UnitCardComponent);
       component = fixture.componentInstance;
