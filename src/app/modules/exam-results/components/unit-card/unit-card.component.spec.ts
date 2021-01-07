@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { SharedTestingModule } from '@tests/modules';
 import { EmptyStringPipe } from '../../pipes';
 import { UnitCardComponent } from './unit-card.component';
 
@@ -12,7 +13,7 @@ describe('UnitCardComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [UnitCardComponent, EmptyStringPipe],
-        imports: [IonicModule.forRoot()],
+        imports: [SharedTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(UnitCardComponent);

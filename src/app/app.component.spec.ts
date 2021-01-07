@@ -1,7 +1,8 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Plugins, SplashScreenPlugin, StatusBarPlugin, StatusBarStyle } from '@capacitor/core';
-import { Platform } from '@ionic/angular';
+import { NavController, Platform } from '@ionic/angular';
+import { SharedTestingModule } from '@tests/modules';
 import { createPlatformSpy } from '@tests/spies';
 import { AppComponent } from './app.component';
 
@@ -19,13 +20,15 @@ describe('AppComponent', () => {
       originalStatusBar = Plugins.StatusBar;
       Plugins.StatusBar = jasmine.createSpyObj('StatusBarPlugin', ['setOverlaysWebView', 'setStyle']);
       Plugins.SplashScreen = jasmine.createSpyObj('SplashScreenPlugin', ['hide']);
-
       platformSpy = createPlatformSpy();
 
       TestBed.configureTestingModule({
         declarations: [AppComponent],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        providers: [{ provide: Platform, useValue: platformSpy }],
+        imports: [SharedTestingModule, RouterTestingModule],
+        providers: [
+          { provide: Platform, useValue: platformSpy },
+          { provide: NavController, useValue: {} },
+        ],
       }).compileComponents();
 
       fixture = TestBed.createComponent(AppComponent);

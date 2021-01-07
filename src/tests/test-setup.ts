@@ -19,3 +19,17 @@ export const improveChangeDetection = () => {
     return componentFixture;
   };
 };
+
+// Source: https://github.com/ionic-team/ionic-framework/issues/19926#issuecomment-724188621
+
+export const muteIonicReInitializeWarning = () => {
+  const originalWarn = console.warn;
+  const patchedWarn = (warning: any, ...optionalParams: any[]) => {
+    const suppress = `Ionic Angular was already initialized. Make sure IonicModule.forRoot() is just called once.`;
+    if (warning === suppress) {
+      return;
+    }
+    originalWarn(warning, ...optionalParams);
+  };
+  console.warn = patchedWarn;
+};

@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService } from '@app/core';
-import { IonicModule } from '@ionic/angular';
+import { createComponentMock } from '@tests/mocks';
+import { SharedTestingModule } from '@tests/modules';
 import { ExamResultsPageService } from '../../services';
 import { ExamResultsPage } from './exam-results.page';
 
@@ -33,9 +34,11 @@ describe('ExamResultsPage', () => {
       ]);
 
       TestBed.configureTestingModule({
-        declarations: [ExamResultsPage],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [IonicModule.forRoot()],
+        declarations: [
+          ExamResultsPage,
+          createComponentMock({ selector: 'app-semester-select', inputs: ['semesterList'] }),
+        ],
+        imports: [SharedTestingModule],
         providers: [
           { provide: DialogService, useValue: dialogServiceSpy },
           { provide: AuthenticationService, useValue: authServiceSpy },

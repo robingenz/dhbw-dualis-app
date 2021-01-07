@@ -2,11 +2,11 @@ import { TestBed } from '@angular/core/testing';
 import {
   AlertController,
   AngularDelegate,
-  IonicModule,
   LoadingController,
   ModalController,
   PopoverController,
 } from '@ionic/angular';
+import { SharedTestingModule } from '@tests/modules';
 import { DialogService } from './dialog.service';
 
 describe('DialogService', () => {
@@ -28,7 +28,7 @@ describe('DialogService', () => {
         { provide: LoadingController, useValue: loadingControllerSpy },
         { provide: PopoverController, useValue: popoverControllerSpy },
       ],
-      imports: [IonicModule],
+      imports: [SharedTestingModule],
     });
     service = TestBed.inject(DialogService);
   });
