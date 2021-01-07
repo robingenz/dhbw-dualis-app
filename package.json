@@ -10,7 +10,7 @@
     "build": "ng build",
     "release": "standard-version --commit-all",
     "test": "ng test --browsers=Chrome",
-    "test:ci": "ng test --watch=false --progress=false --browsers=HeadlessChrome",
+    "test:ci": "ng test --watch=false --progress=false --code-coverage --browsers=HeadlessChrome",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --protractorConfig=e2e/protractor-ci.conf.js",
