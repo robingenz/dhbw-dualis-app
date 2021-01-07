@@ -22,7 +22,7 @@ module.exports = function (config) {
         // or set a specific seed with `seed: 4321`
       },
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
-      captureConsole: false,
+      captureConsole: true,
     },
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces

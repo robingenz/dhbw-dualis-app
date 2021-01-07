@@ -3,7 +3,7 @@
 import 'zone.js/dist/zone-testing'; // Must be the FIRST import!
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { improveChangeDetection } from '@tests/test-setup';
+import { improveChangeDetection, muteIonicReInitializeWarning } from '@tests/test-setup';
 
 declare const require: any;
 
@@ -15,3 +15,4 @@ const context = require.context('./', true, /\.spec\.ts$/);
 context.keys().map(context);
 
 improveChangeDetection();
+muteIonicReInitializeWarning();

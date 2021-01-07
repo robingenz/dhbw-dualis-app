@@ -1,8 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService, DialogService } from '@app/core';
-import { IonicModule } from '@ionic/angular';
+import { SharedTestingModule } from '@tests/modules';
 import { LoginPage } from './login.page';
 
 describe('LoginPage', () => {
@@ -21,7 +20,7 @@ describe('LoginPage', () => {
 
       TestBed.configureTestingModule({
         declarations: [LoginPage],
-        imports: [IonicModule.forRoot(), ReactiveFormsModule],
+        imports: [SharedTestingModule],
         providers: [
           { provide: DialogService, useValue: dialogServiceSpy },
           { provide: AuthenticationService, useValue: authenticationServiceSpy },

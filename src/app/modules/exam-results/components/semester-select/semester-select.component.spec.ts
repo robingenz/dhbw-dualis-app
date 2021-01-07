@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
 import { SelectChangeEventDetail } from '@ionic/core';
+import { SharedTestingModule } from '@tests/modules';
 import { SemesterListItem } from '../../interfaces';
 import { SemesterSelectComponent } from './semester-select.component';
 
@@ -13,7 +13,7 @@ describe('SemesterSelectComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [SemesterSelectComponent],
-        imports: [IonicModule.forRoot()],
+        imports: [SharedTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(SemesterSelectComponent);

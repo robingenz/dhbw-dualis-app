@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { SharedTestingModule } from '@tests/modules';
 import { SemesterGpaBarComponent } from './semester-gpa-bar.component';
 
 describe('SemesterGpaBarComponent', () => {
@@ -11,7 +11,7 @@ describe('SemesterGpaBarComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [SemesterGpaBarComponent],
-        imports: [IonicModule.forRoot()],
+        imports: [SharedTestingModule],
       }).compileComponents();
 
       fixture = TestBed.createComponent(SemesterGpaBarComponent);
