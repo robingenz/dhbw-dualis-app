@@ -56,6 +56,9 @@ export class NativeHttpService {
   }
 
   private parseError(error: any): Error {
+    if (error instanceof Object && 'rejection' in error) {
+      error = (error as any).rejection;
+    }
     if (!error.error || !error.status || !error.url) {
       return new Error(`${LOGTAG} Unknown error occurred.`);
     }
