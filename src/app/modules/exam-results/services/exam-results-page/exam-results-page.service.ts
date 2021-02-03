@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
 import { AuthenticationService, NativeHttpMethod, NativeHttpService, SessionError } from '@app/core';
-import { HTTPResponse } from '@ionic-native/http/ngx';
+import { HttpResponse } from '@capacitor-community/http';
 import { Exam, Semester, SemesterList, SemesterListItem } from '../../interfaces';
 import { DualisHtmlParserService } from '../dualis-html-parser/dualis-html-parser.service';
 
@@ -19,7 +19,7 @@ export class ExamResultsPageService {
 
   public async getSemesterList(): Promise<SemesterList> {
     const sessionKey = this.getSessionKey();
-    const response: HTTPResponse = await this.nativeHttpService.request({
+    const response: HttpResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.GET,
       url: [
         Config.dualisBaseUrl,
@@ -32,7 +32,7 @@ export class ExamResultsPageService {
 
   public async getSemesterByListItem(item: SemesterListItem): Promise<Semester | null> {
     const sessionKey = this.getSessionKey();
-    const response: HTTPResponse = await this.nativeHttpService.request({
+    const response: HttpResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.GET,
       url: [
         Config.dualisBaseUrl,
@@ -59,7 +59,7 @@ export class ExamResultsPageService {
 
   private async getExamsByUnitId(unitId: string): Promise<Exam[] | null> {
     const sessionKey = this.getSessionKey();
-    const response: HTTPResponse = await this.nativeHttpService.request({
+    const response: HttpResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.GET,
       url: [
         Config.dualisBaseUrl,

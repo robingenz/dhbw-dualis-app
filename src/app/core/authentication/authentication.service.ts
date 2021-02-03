@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Config } from '@app/config';
-import { HTTPResponse } from '@ionic-native/http/ngx';
+import { HttpResponse } from '@capacitor-community/http';
 import { Session } from '../classes';
 import { NativeHttpMethod, NativeHttpService } from '../services';
 
@@ -68,7 +68,7 @@ export class AuthenticationService {
     const headers: { [name: string]: string } = {
       'Content-Type': 'multipart/form-data; charset=UTF-8',
     };
-    const response: HTTPResponse = await this.nativeHttpService.request({
+    const response: HttpResponse = await this.nativeHttpService.request({
       method: NativeHttpMethod.POST,
       url: [Config.dualisBaseUrl, '/scripts/mgrqispi.dll'].join(''),
       data: formData,
@@ -88,7 +88,7 @@ export class AuthenticationService {
     });
   }
 
-  private getSessionKeyFromHttpResponse(response: HTTPResponse): string | null {
+  private getSessionKeyFromHttpResponse(response: HttpResponse): string | null {
     const refreshHeader = response.headers.refresh;
     if (!refreshHeader?.indexOf('STARTPAGE_DISPATCH')) {
       return null;
