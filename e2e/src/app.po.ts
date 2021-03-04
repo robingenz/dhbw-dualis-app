@@ -6,6 +6,6 @@ export class AppPage {
   }
 
   public getTitleText(): promise.Promise<string> {
-    return element(by.deepCss('app-root ion-header ion-title')).getText();
+    return element(by.css('app-root ion-header ion-title')).getText();
   }
 }
