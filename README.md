@@ -87,3 +87,11 @@ This project uses [Ionic](https://ionicframework.com/) as app development platfo
 <!-- ## Contributing 😊
 
 See [CONTRIBUTING.md](https://github.com/robingenz/dhbw-dualis-app/blob/main/CONTRIBUTING.md). -->
+
+## Changelog
+
+See [CHANGELOG.md](https://github.com/robingenz/dhbw-dualis-app/blob/main/CHANGELOG.md).
+
+## License
+
+See [LICENSE](https://github.com/robingenz/dhbw-dualis-app/blob/main/LICENSE).
