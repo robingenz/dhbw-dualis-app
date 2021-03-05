@@ -72,14 +72,14 @@ Prepare and launch the Android app:
 
 ```
 npx ionic cap sync android
-npx ionic cap run android -l
+npx ionic cap run android
 ```
 
 Prepare and launch the iOS app:
 
 ```
 npx ionic cap sync ios
-npx ionic cap run ios -l
+npx ionic cap run ios
 ```
 
 This project uses [Ionic](https://ionicframework.com/) as app development platform and the [Ionic CLI](https://ionicframework.com/docs/cli).
