@@ -30,7 +30,7 @@
     "@capacitor/ios": "2.4.7",
     "@ionic-native/core": "5.31.1",
     "@ionic-native/http": "5.31.1",
-    "@ionic/angular": "5.6.0",
+    "@ionic/angular": "5.6.1",
     "cordova-plugin-advanced-http": "3.1.0",
     "cordova-plugin-file": "6.0.2",
     "rxjs": "6.6.6",
@@ -38,8 +38,8 @@
     "zone.js": "0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.1102.4",
-    "@angular/cli": "11.2.4",
+    "@angular-devkit/build-angular": "0.1102.5",
+    "@angular/cli": "11.2.5",
     "@angular/compiler": "11.2.4",
     "@angular/compiler-cli": "11.2.4",
     "@angular/language-service": "11.2.5",
@@ -50,7 +50,7 @@
     "@types/jasminewd2": "2.0.8",
     "@types/node": "14.14.35",
     "codelyzer": "6.0.1",
-    "jasmine-core": "3.6.0",
+    "jasmine-core": "3.7.0",
     "jasmine-spec-reporter": "6.0.0",
     "karma": "6.2.0",
     "karma-chrome-launcher": "3.1.0",
