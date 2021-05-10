@@ -58,7 +58,7 @@
     "karma-jasmine": "4.0.1",
     "karma-jasmine-html-reporter": "1.6.0",
     "nan": "2.14.2",
-    "prettier": "2.2.1",
+    "prettier": "2.3.0",
     "protractor": "7.0.0",
     "puppeteer": "9.1.1",
     "standard-version": "9.3.0",
